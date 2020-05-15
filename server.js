@@ -39,19 +39,19 @@ client.query('SELECT * FROM salesforce.account', function(error, data) {
   }
   else {
     var schema = 'salesforce.';
-    transactionTable = schema + 'transaction__c';
+    accountTable = schema + 'account';
   
   }
 });
 
-app.get('/transaction', function(req, res) {
-  client.query('SELECT * FROM ' + transactionTable, function(error, data) {
+app.get('/account', function(req, res) {
+  client.query('SELECT * FROM ' + accountTable, function(error, data) {
     res.json(data.rows);
   });
 });
 
-app.get('/transaction/:id', function(req, res) {
-  client.query('SELECT ' + transactionTable + '.*, ' + brokerTable + '.sfid AS broker__c_sfid, ' + brokerTable + '.name AS broker__c_name, ' + brokerTable + '.email__c AS broker__c_email__c, ' + brokerTable + '.phone__c AS broker__c_phone__c, ' + brokerTable + '.mobile_phone__c AS broker__c_mobile_phone__c, ' + brokerTable + '.title__c AS broker__c_title__c, ' + brokerTable + '.picture__c AS broker__c_picture__c FROM ' + propertyTable + ' INNER JOIN ' + brokerTable + ' ON ' + propertyTable + '.broker__c = ' + brokerTable + '.sfid WHERE ' + propertyTable + '.sfid = $1', [req.params.id], function(error, data) {
+app.get('/account/:id', function(req, res) {
+  client.query('SELECT ' + accountTable + '.* FROM ' + accountTable + 'WHERE ' + accountTable + '.sfid = $1', [req.params.id], function(error, data) {
     res.json(data.rows[0]);
   });
 });
