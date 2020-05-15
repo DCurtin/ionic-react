@@ -15,7 +15,7 @@ app.get("*", function(req, res) {
   console.log('MDY114 PATH ' + path.join("client", "public", "index.html"));
   res.sendFile(path.join(__dirname, "client", "public", "index.html"));
 });
-var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/dreamhouse';
+var connectionString = process.env.DATABASE_URL;
 
 if (process.env.DATABASE_URL !== undefined) {
   pg.defaults.ssl = true;
@@ -24,7 +24,7 @@ if (process.env.DATABASE_URL !== undefined) {
 var client = new pg.Client(connectionString);
 client.connect();
 
-var transactionTable = 'account';
+var accountTable = 'account';
 
 // setup the demo data if needed
 client.query('SELECT * FROM salesforce.account', function(error, data) {
