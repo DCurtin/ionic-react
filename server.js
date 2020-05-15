@@ -46,6 +46,7 @@ client.query('SELECT * FROM salesforce.account', function(error, data) {
 
 app.get('/account', function(req, res) {
   client.query('SELECT * FROM ' + accountTable, function(error, data) {
+    console.log(` MDY114 ACCOUNTS ${data.rows}`)
     res.json(data.rows);
   });
 });
