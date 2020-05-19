@@ -26,7 +26,7 @@ const Home: React.FC = () => {
     })*/
 
   });
-  return (
+  return (!result) ? (
     <IonPage>
       <IonHeader>
         <IonToolbar>
@@ -37,11 +37,28 @@ const Home: React.FC = () => {
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Ion Title Contect</IonTitle>
+
           </IonToolbar>
         </IonHeader>
         <ExploreContainer />
       </IonContent>
     </IonPage>
+  ) : (
+      <tbody> 
+      {
+        result.map(item => {          
+          return (
+            <tr> 
+            {
+              Object.values(item).map(value => {
+                return (<td>{value}</td>)
+              })
+            } 
+            </tr>
+          );
+        })
+      }
+      </tbody>
   );
 };
 
