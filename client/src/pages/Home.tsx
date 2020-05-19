@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem } from '@ionic/react';
 import React, {useState} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
@@ -44,21 +44,13 @@ const Home: React.FC = () => {
       </IonContent>
     </IonPage>
   ) : (
-      <tbody> 
-      {
-        result.map(item => {          
-          return (
-            <tr> 
-            {
-              Object.values(item).map(value => {
-                return (<td>{value}</td>)
-              })
-            } 
-            </tr>
-          );
-        })
-      }
-      </tbody>
+      <IonContent>
+        <IonList>
+          result.array.forEach(element => {
+            <IonItem> element.sfid </IonItem>
+          });
+        </IonList>
+      </IonContent>
   );
 };
 
