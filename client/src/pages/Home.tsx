@@ -7,8 +7,10 @@ const Home: React.FC = () => {
   var test = 1 + 2 + 3 + 4;
   var result;
   getAccounts().then(function(data){
+    console.log('in get accounts response');
     console.log(data);
-    data?.read().then(function({done, value}){
+    result = data;
+    /*data?.read().then(function({done, value}){
       if(done){
         console.log('done')
         return 'done'
@@ -18,7 +20,7 @@ const Home: React.FC = () => {
       console.log(value);
       console.log(decoder.decode(value))
 
-    })
+    })*/
 
   });
   return (
@@ -46,8 +48,13 @@ function getAccounts(){
     method : 'POST'
   }
   return fetch(url, options).then( function(response){
-    console.log(response.body);
-    return response.body?.getReader();
+    return response.json().then(function(data)
+    {
+      console.log('in fetch json');
+      console.log(data);
+      return data;
+    })
+    //return response.body?.getReader();
   })
 }
 
