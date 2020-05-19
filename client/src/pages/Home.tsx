@@ -11,7 +11,7 @@ const Home: React.FC = () => {
     console.log('in get accounts response');
     console.log(data);
     console.log(data[0].sfid);
-    setResult(data[0].sfid);
+    setResult(data);
     return data[0].sfid;
     /*data?.read().then(function({done, value}){
       if(done){
