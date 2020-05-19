@@ -7,6 +7,8 @@ const Home: React.FC = () => {
   var test = 1 + 2 + 3 + 4;
   var collection = [{any : String}];
   const [result, setResult] = useState([{any : String}]);
+
+  console.log(result.length)
   if(result.length === 0){
 
     getAccounts().then(function(data){
