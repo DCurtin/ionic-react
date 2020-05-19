@@ -5,7 +5,19 @@ import './Home.css';
 
 const Home: React.FC = () => {
   var test = 1 + 2 + 3 + 4;
-  var result = getAccounts();
+  var result;
+  getAccounts().then(function(data){
+    console.log(data);
+    data?.read().then(function({done, value}){
+      if(done){
+        console.log('done')
+        return 'done'
+      }
+
+      console.log(value);
+    })
+
+  });
   return (
     <IonPage>
       <IonHeader>
@@ -32,7 +44,7 @@ function getAccounts(){
   }
   return fetch(url, options).then( function(response){
     console.log(response.body);
-    return response.body;
+    return response.body?.getReader();
   })
 }
 
