@@ -48,6 +48,11 @@ if (process.env.DATABASE_URL !== undefined) {
   }
 });*/
 
+app.use('/googleplex', function(req, res){
+  console.log('googleplex');
+  res.json('googleplex')
+})
+
 app.use('/account', function(req, res) {
   client.query('SELECT * FROM ' + accountTable, function(error, data) {
     console.log(` MDY114 ACCOUNTS ${data.rows}`)
