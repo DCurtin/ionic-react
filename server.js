@@ -65,11 +65,11 @@ app.use('/account', function(req, res) {
   });
 });
 
-app.get('/account/:id', function(req, res) {
+/*app.get('/account/:id', function(req, res) {
   client.query('SELECT ' + accountTable + '.* FROM ' + accountTable + 'WHERE ' + accountTable + '.sfid = $1', [req.params.id], function(error, data) {
     res.json(data.rows[0]);
   });
-});
+});*/
 
 
 var port = process.env.PORT || 8200;
