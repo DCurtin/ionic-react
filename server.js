@@ -6,25 +6,28 @@ var pg = require('pg');
 
 var app = express();
 
+var client = new pg.Client(connectionString);
+
+var accountTable = 'salesforce.account';
+
+client.connect();
+
 app.use(express.static(path.join(__dirname,"client", "build")));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-/*app.get("*", function(req, res) {
+app.get("*", function(req, res) {
   console.log('MDY114 PATH ' + path.join("client", "public", "index.html"));
-  res.sendFile(path.join(__dirname, "client", "public", "index.html"));
-});*/
+  //res.sendFile(path.join(__dirname, "client", "public", "index.html"));
+  res.json(JSON.stringify(req.url + ' ' + req.path))
+});
 var connectionString = process.env.DATABASE_URL;
 
 if (process.env.DATABASE_URL !== undefined) {
   pg.defaults.ssl = true;
 }
 
-var client = new pg.Client(connectionString);
-client.connect();
-
-var accountTable = 'salesforce.account';
 
 // setup the demo data if needed
 /*client.query('SELECT * FROM salesforce.account', function(error, data) {
