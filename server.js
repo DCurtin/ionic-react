@@ -58,6 +58,10 @@ app.use('/account', function(req, res) {
   client.query('SELECT * FROM ' + accountTable, function(error, data) {
     console.log(` MDY114 ACCOUNTS ${data.rows}`)
     res.json(data.rows);
+  }).catch(function(err){
+    console.log(err);
+
+    res.json(JSON.stringify(err));
   });
 });
 
