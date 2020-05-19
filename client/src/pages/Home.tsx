@@ -10,7 +10,7 @@ const Home: React.FC = () => {
 
   console.log(result.length)
   console.log(result[0])
-  if(result.length === 0){
+  if(result.length === 1){
 
     getAccounts().then(function(data){
     console.log('in get accounts response');
