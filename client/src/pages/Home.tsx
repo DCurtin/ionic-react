@@ -5,11 +5,10 @@ import './Home.css';
 
 const Home: React.FC = () => {
   var test = 1 + 2 + 3 + 4;
-  var result;
-  getAccounts().then(function(data){
+  var result = getAccounts().then(function(data){
     console.log('in get accounts response');
     console.log(data);
-    result = data[0].sfid;
+    return data[0].sfid;
     /*data?.read().then(function({done, value}){
       if(done){
         console.log('done')
