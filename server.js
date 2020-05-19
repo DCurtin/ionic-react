@@ -11,10 +11,10 @@ app.use(express.static(path.join(__dirname,"client", "build")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get("*", function(req, res) {
+/*app.get("*", function(req, res) {
   console.log('MDY114 PATH ' + path.join("client", "public", "index.html"));
   res.sendFile(path.join(__dirname, "client", "public", "index.html"));
-});
+});*/
 var connectionString = process.env.DATABASE_URL;
 
 if (process.env.DATABASE_URL !== undefined) {
@@ -24,10 +24,10 @@ if (process.env.DATABASE_URL !== undefined) {
 var client = new pg.Client(connectionString);
 client.connect();
 
-var accountTable = 'account';
+var accountTable = 'salesforce.account';
 
 // setup the demo data if needed
-client.query('SELECT * FROM salesforce.account', function(error, data) {
+/*client.query('SELECT * FROM salesforce.account', function(error, data) {
   if (error !== null) {
     client.query('SELECT * FROM account', function(error, data) {
       if (error !== null) {
@@ -42,7 +42,7 @@ client.query('SELECT * FROM salesforce.account', function(error, data) {
     accountTable = schema + 'account';
   
   }
-});
+});*/
 
 app.get('/account', function(req, res) {
   client.query('SELECT * FROM ' + accountTable, function(error, data) {
