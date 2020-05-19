@@ -61,7 +61,7 @@ app.use('/account', function(req, res) {
   }).catch(function(err){
     console.log(err);
 
-    res.json(JSON.stringify(err));
+    res.json('fail');
   });
 });
 
