@@ -5,11 +5,12 @@ import './Home.css';
 
 const Home: React.FC = () => {
   var test = 1 + 2 + 3 + 4;
+  var result = getAccounts();
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-  <IonTitle>MDY114 THIS IS MY HOME PAGE {test}</IonTitle>
+  <IonTitle>MDY114 THIS IS MY HOME PAGE {test} {result}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -29,8 +30,9 @@ function getAccounts(){
   var options = {
     method : 'POST'
   }
-  fetch(url, options).then( function(response){
+  return fetch(url, options).then( function(response){
     console.log(response);
+    return response.body;
   })
 }
 
