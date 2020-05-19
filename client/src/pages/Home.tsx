@@ -9,6 +9,7 @@ const Home: React.FC = () => {
   const [result, setResult] = useState([{any : String}]);
 
   console.log(result.length)
+  console.log(result[0])
   if(result.length === 0){
 
     getAccounts().then(function(data){
@@ -61,6 +62,7 @@ const Home: React.FC = () => {
       </IonContent>
   );
 };
+
 
 function getAccounts(){
   var url = '/account';
