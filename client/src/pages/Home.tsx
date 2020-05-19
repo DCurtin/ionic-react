@@ -24,4 +24,14 @@ const Home: React.FC = () => {
   );
 };
 
+function getAccounts(){
+  var url = '/account';
+  var options = {
+    method : 'POST'
+  }
+  fetch(url, options).then( function(response){
+    console.log(response);
+  })
+}
+
 export default Home;
