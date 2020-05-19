@@ -54,6 +54,7 @@ app.use('/googleplex', function(req, res){
 })
 
 app.use('/account', function(req, res) {
+  console.log('test');
   client.query('SELECT * FROM ' + accountTable, function(error, data) {
     console.log(` MDY114 ACCOUNTS ${data.rows}`)
     res.json(data.rows);
