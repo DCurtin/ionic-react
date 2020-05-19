@@ -13,8 +13,11 @@ const Home: React.FC = () => {
         console.log('done')
         return 'done'
       }
+      var decoder = new TextDecoder();
 
       console.log(value);
+      console.log(decoder.decode(value))
+
     })
 
   });
