@@ -47,7 +47,7 @@ const Home: React.FC = () => {
       <IonContent>
         <IonList>
           return ({result.forEach(function(element){
-            return <IonItem>{ element.get('sfid') }</IonItem>
+            return <IonItem>{ element['sfid'] }</IonItem>
           })})
         </IonList>
       </IonContent>
