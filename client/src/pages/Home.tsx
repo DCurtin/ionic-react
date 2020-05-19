@@ -5,7 +5,7 @@ import './Home.css';
 
 const Home: React.FC = () => {
   var test = 1 + 2 + 3 + 4;
-  const [result, setResult] = useState([{}]);
+  const [result, setResult] = useState([{'sfid':''}]);
 
   getAccounts().then(function(data){
     console.log('in get accounts response');
@@ -46,7 +46,7 @@ const Home: React.FC = () => {
   ) : (
       <IonContent>
         <IonList>
-          return ({result.forEach(function(element){
+          return ({result.forEach(function(element: {'sfid':''}){
             return <IonItem>{ element['sfid'] }</IonItem>
           })})
         </IonList>
