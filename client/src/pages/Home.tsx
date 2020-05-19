@@ -31,7 +31,7 @@ function getAccounts(){
     method : 'POST'
   }
   return fetch(url, options).then( function(response){
-    console.log(response);
+    console.log(response.body);
     return response.body;
   })
 }
