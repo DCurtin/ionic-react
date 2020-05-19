@@ -7,9 +7,7 @@ const Home: React.FC = () => {
   var test = 1 + 2 + 3 + 4;
   var collection = [{any : String}];
   const [result, setResult] = useState([{any : String}]);
-  setResult(undefined);
-
-  if(!result){
+  if(result.length === 0){
 
     getAccounts().then(function(data){
     console.log('in get accounts response');
@@ -55,7 +53,7 @@ const Home: React.FC = () => {
       <IonContent>
         <IonList>
           return ({result.forEach(function(element: any){
-            return <IonItem>{ element['sfid'] }</IonItem>
+            return (<IonItem>{ element['sfid'] }</IonItem>)
           })})
         </IonList>
       </IonContent>
