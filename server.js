@@ -6,11 +6,12 @@ var pg = require('pg');
 
 var app = express();
 
+var connectionString = process.env.DATABASE_URL;
+
 var client = new pg.Client(connectionString);
 
 var accountTable = 'salesforce.account';
 
-var connectionString = process.env.DATABASE_URL;
 
 client.connect();
 
