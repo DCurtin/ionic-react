@@ -54,12 +54,12 @@ const Home: React.FC = () => {
     </IonPage>
   ) : (
       <IonContent>
-        <IonList>{
-          result.forEach(function(element: any){
-            console.log(element);
-            return <IonItem>{ element['sfid'] }</IonItem>
-          })
-          }
+        <IonList>
+          <IonItem>SFID</IonItem>
+          {(result.map(function(row: any, i : any){
+            console.log(row);
+            return <IonItem>{ row['sfid'] }</IonItem>
+          }))}
         </IonList>
       </IonContent>
   );
