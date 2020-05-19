@@ -9,7 +9,7 @@ const Home: React.FC = () => {
   getAccounts().then(function(data){
     console.log('in get accounts response');
     console.log(data);
-    result = data;
+    result = data[0].sfid;
     /*data?.read().then(function({done, value}){
       if(done){
         console.log('done')
