@@ -1,16 +1,17 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useState } from '@ionic/react';
 import React from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
 
 const Home: React.FC = () => {
   var test = 1 + 2 + 3 + 4;
-  var result;
+  const [result, setResult] = useState(0);
+
   getAccounts().then(function(data){
     console.log('in get accounts response');
     console.log(data);
     console.log(data[0].sfid);
-    result = data[0].sfid
+    setResult(data[0].sfid);
     return data[0].sfid;
     /*data?.read().then(function({done, value}){
       if(done){
