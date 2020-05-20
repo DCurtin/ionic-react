@@ -3,7 +3,7 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var pg = require('pg');
-
+var jsforce = require('jsforce');
 var app = express();
 
 app.use(function(req, res, next) {
@@ -19,6 +19,17 @@ var connectionString = process.env.DATABASE_URL;
 var client = new pg.Client(connectionString);
 
 var accountTable = 'salesforce.account';
+
+
+var conn = new jsforce.Connection({
+  oauth2 : {
+    // you can change loginUrl to connect to sandbox or prerelease env.
+    // loginUrl : 'https://test.salesforce.com',
+    clientId : process.env.SFClient_Id,
+    clientSecret : process.env.SFClient_Sec,
+    redirectUri : process.env.SF_Redirect
+  }
+});
 
 
 client.connect();
@@ -87,6 +98,21 @@ app.post('/createTransaction', function(req, res)
       console.log(res.rows[0])
     }
   })
+})
+
+app.post('/login', function(req, res){
+  console.log(req.userName + ' ' + req.passWord)
+  conn.login(req.userName, req.passWord, function(err, userInfo) {
+    if (err) { return console.error(err); res.json('fail') ;}
+    // Now you can get the access token and instance URL information.
+    // Save them to establish connection next time.
+    console.log(conn.accessToken);
+    console.log(conn.instanceUrl);
+    // logged in user property
+    console.log("User ID: " + userInfo.id);
+    console.log("Org ID: " + userInfo.organizationId);
+    // ...
+  });
 })
 
 /*app.get('/account/:id', function(req, res) {
