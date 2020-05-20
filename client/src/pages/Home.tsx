@@ -58,7 +58,7 @@ const Home: React.FC = () => {
           <IonItem>SFID And Name</IonItem>
           {(result.map(function(row: any, i : any){
             console.log(row);
-            return <IonItem>{row['sfid']}  {row['name']} <IonButton onClick={createTransaction(row['sfid'])}></IonButton></IonItem>
+            return <IonItem>{row['sfid']}  {row['name']} <IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonItem>
           }))}
         </IonList>
       </IonContent>
