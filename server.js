@@ -31,6 +31,8 @@ var conn = new jsforce.Connection({
   }
 });
 
+console.log(conn);
+
 
 client.connect();
 
@@ -104,8 +106,9 @@ app.post('/loginServer', function(req, res){
   var data = req.body;
   console.log(data.userName + ' ' + data.passWord);
   conn.login(data.userName, data.passWord, function(err, userInfo) {
-    if (err) { 
-      res.json('fail');
+    if (err) {
+      res.json(err);
+      console.log(err);
       return console.log('fail');
     }
     // Now you can get the access token and instance URL information.
