@@ -29,7 +29,7 @@ const Login: React.FC = () => {
 };
 
 function login(username: String, password: String){
-  var url = 'https://ionic-reach-test-midland.herokuapp.com/loginServer'
+  var url = '/loginServer'
   var options ={
     method : 'POST',
     headers: {
