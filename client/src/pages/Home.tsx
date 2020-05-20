@@ -54,6 +54,12 @@ const Home: React.FC = () => {
     </IonPage>
   ) : (
       <IonContent>
+        <IonHeader>
+        <IonToolbar>
+          <IonTitle>MDY114 THIS IS MY HOME PAGE {test} </IonTitle>
+          <IonButton onClick={authenticate} Login ></IonButton>
+        </IonToolbar>
+      </IonHeader>
         <IonList>
           <IonItem>SFID And Name</IonItem>
           {(result.map(function(row: any, i : any){
@@ -98,6 +104,19 @@ function createTransaction(accountId : String)
   }
 
   return fetch(url, options);
+}
+
+function authenticate(){
+  var url = 'https://test.salesforce.com/services/oauth2/authorize?response_type=code&client_id=3MVG9ahGHqp.k2_wp5KNZXDK5mBqaJaRv6ss6l7gQkGLZfriwyGa_1aRXE88g0W5oT9rwlJQ31ieo52ucBrJm&redirect_uri=http://localhost:8100/&state=init&prompt=login';
+  let browserRef = window.open(url, '_blank', 'location=no');
+  browserRef.addEventListener("loadstart", (event: any) => {
+    console.log(event.url);
+    if ((event.url).indexOf('?token=') !== -1) {
+      let token = event.url.slice(event.url.indexOf('?token=') + '?token='.length);
+      // here is your token, now you can close the InAppBrowser
+      browserRef.close();
+    }
+  })
 }
 
 export default Home;
