@@ -85,6 +85,7 @@ function getAccounts(){
 
 function createTransaction(accountId : String)
 {
+  console.log(accountId)
   var url = '/createTransaction';
   var options = {
     method : 'POST',
