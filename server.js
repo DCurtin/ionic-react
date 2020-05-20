@@ -71,6 +71,29 @@ app.use('/account', function(req, res) {
   })
 });
 
+app.use('/createTransaction', function(req, res)
+{
+  var data = req.body;
+  const query = {
+    text: 'INSERT INTO salesforce.transaction__c(paybable_to_from__c, recordtypeid, account__c, assigned_to__c) VALUES($1, $2)',
+    values: ['test 123', '01230000000Ne2TAAS', data.sfid, '0050M00000Dv1h5QAB'],
+  }
+
+  console.log(data);
+  console.log(data.sfid);
+  client.query(query, (err, res) => {
+    if (err) {
+      console.log(err.stack)
+      res.json(JSON.stringify({even:'failed'}))
+    } else {
+      res.json(JSON.stringify({even:'sucess'}))
+      console.log(res.rows[0])
+    }
+  })
+  res.json(JSON.stringify({even:'sucess'}));
+
+})
+
 /*app.get('/account/:id', function(req, res) {
   client.query('SELECT ' + accountTable + '.* FROM ' + accountTable + 'WHERE ' + accountTable + '.sfid = $1', [req.params.id], function(error, data) {
     res.json(data.rows[0]);

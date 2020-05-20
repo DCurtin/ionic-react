@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton } from '@ionic/react';
 import React, {useState} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
@@ -58,7 +58,7 @@ const Home: React.FC = () => {
           <IonItem>SFID And Name</IonItem>
           {(result.map(function(row: any, i : any){
             console.log(row);
-            return <IonItem>{row['sfid']}  {row['name']}</IonItem>
+            return <IonItem>{row['sfid']}  {row['name']} <IonButton onClick={createTransaction(row['sfid'])}></IonButton></IonItem>
           }))}
         </IonList>
       </IonContent>
@@ -81,6 +81,19 @@ function getAccounts(){
     })
     //return response.body?.getReader();
   })
+}
+
+function createTransaction(accountId : String)
+{
+  var url = '/createTransaction';
+  var options = {
+    method : 'POST',
+    body: JSON.stringify({
+      sfid : accountId
+    })
+  }
+
+  return fetch(url, options);
 }
 
 export default Home;
