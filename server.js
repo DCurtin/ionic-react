@@ -100,7 +100,7 @@ app.post('/createTransaction', function(req, res)
   })
 })
 
-app.post('/login', function(req, res){
+app.post('/loginServer', function(req, res){
   console.log(req.userName + ' ' + req.passWord);
   conn.login(req.userName, req.passWord, function(err, userInfo) {
     if (err) { 
