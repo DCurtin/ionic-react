@@ -25,9 +25,8 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const App: React.FC = () => 
-{
-return (
+const App: React.FC = () => (
+
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
@@ -37,7 +36,6 @@ return (
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
-);
-}
+)
 
 export default App;
