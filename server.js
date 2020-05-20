@@ -101,9 +101,12 @@ app.post('/createTransaction', function(req, res)
 })
 
 app.post('/login', function(req, res){
-  console.log(req.userName + ' ' + req.passWord)
+  console.log(req.userName + ' ' + req.passWord);
   conn.login(req.userName, req.passWord, function(err, userInfo) {
-    if (err) { return console.error(err); res.json('fail') ;}
+    if (err) { 
+      res.json('fail');
+      return console.log('fail');
+    }
     // Now you can get the access token and instance URL information.
     // Save them to establish connection next time.
     console.log(conn.accessToken);

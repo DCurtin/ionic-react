@@ -1,4 +1,5 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton } from '@ionic/react';
+
 import React, {useState} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
@@ -105,6 +106,8 @@ function createTransaction(accountId : String)
 
   return fetch(url, options);
 }
+
+function login(){}
 
 function authenticate(){
   var url = 'https://test.salesforce.com/services/oauth2/authorize?response_type=code&client_id=3MVG9ahGHqp.k2_wp5KNZXDK5mBqaJaRv6ss6l7gQkGLZfriwyGa_1aRXE88g0W5oT9rwlJQ31ieo52ucBrJm&redirect_uri=http://localhost:8100&state=init&prompt=login&display=touch';
