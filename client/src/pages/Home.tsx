@@ -93,7 +93,7 @@ function createTransaction(accountId : String)
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      sfid : accountId
+      'sfid' : accountId
     })
   }
 

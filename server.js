@@ -71,18 +71,15 @@ app.use('/account', function(req, res) {
   })
 });
 
-app.use('/createTransaction', function(req, res)
+app.post('/createTransaction', function(req, res)
 {
   var data = req.body;
   //console.log(req);
-  console.log(req.sfid);
+  console.log('Account id ' + data.sfid);
   const query = {
-    text: 'INSERT INTO salesforce.transaction__c(paybable_to_from__c, recordtypeid, account__c, assigned_to__c) VALUES($1, $2)',
+    text: 'INSERT INTO salesforce.transaction__c(paybable_to_from__c, recordtypeid, account__c, assigned_to__c) VALUES($1, $2, $3, $4)',
     values: ['test 123', '01230000000Ne2TAAS', data.sfid, '0050M00000Dv1h5QAB'],
   }
-
-  console.log(data);
-  console.log(data.sfid);
   client.query(query, (err, res) => {
     if (err) {
       console.log(err.stack)
