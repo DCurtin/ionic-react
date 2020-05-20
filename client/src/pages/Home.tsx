@@ -89,6 +89,9 @@ function createTransaction(accountId : String)
   var url = '/createTransaction';
   var options = {
     method : 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify({
       sfid : accountId
     })

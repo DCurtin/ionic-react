@@ -74,7 +74,7 @@ app.use('/account', function(req, res) {
 app.use('/createTransaction', function(req, res)
 {
   var data = req.body;
-  console.log(req);
+  //console.log(req);
   console.log(req.sfid);
   const query = {
     text: 'INSERT INTO salesforce.transaction__c(paybable_to_from__c, recordtypeid, account__c, assigned_to__c) VALUES($1, $2)',
@@ -86,9 +86,9 @@ app.use('/createTransaction', function(req, res)
   client.query(query, (err, res) => {
     if (err) {
       console.log(err.stack)
-      res.json({even:'failed'})
+      res.json({'event':'failed'})
     } else {
-      res.json(JSON.stringify({even:'sucess'}))
+      res.json({'event':'sucess'})
       console.log(res.rows[0])
     }
   })
