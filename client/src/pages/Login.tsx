@@ -23,7 +23,7 @@ const Login: React.FC = () => {
               <IonItem><IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem>
               <IonItem><IonTitle size="large">Password</IonTitle></IonItem>
               <IonItem><IonInput value={password} placeholder="Enter Input" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput></IonItem>
-              <IonItem><IonButton onClick={loginUser}></IonButton></IonItem>
+              <IonItem><IonButton onClick={() => login(username, password)}></IonButton></IonItem>
             </IonList>
           </IonToolbar>
         </IonHeader>
@@ -31,11 +31,6 @@ const Login: React.FC = () => {
     </IonPage>
   )
 };
-
-function loginUser()
-{
-  login(username, password);
-}
 
 function login(username: String, password: String){
   var url = '/login'
