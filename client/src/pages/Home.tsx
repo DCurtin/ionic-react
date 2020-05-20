@@ -55,10 +55,10 @@ const Home: React.FC = () => {
   ) : (
       <IonContent>
         <IonList>
-          <IonItem>SFID</IonItem>
+          <IonItem>SFID And Name</IonItem>
           {(result.map(function(row: any, i : any){
             console.log(row);
-            return <IonItem>{ row['sfid'] }</IonItem>
+            return <IonItem>{row['sfid']}  {row['name']}</IonItem>
           }))}
         </IonList>
       </IonContent>
