@@ -4,10 +4,10 @@ import React, {useState} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Login.css';
 
-const [username, setUsername] = useState('');
-const [password, setPassword] = useState('');
 
 const Login: React.FC = () => {
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   return (
     <IonPage>
       <IonHeader>
@@ -27,7 +27,6 @@ const Login: React.FC = () => {
             </IonList>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer />
       </IonContent>
     </IonPage>
   )
