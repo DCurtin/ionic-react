@@ -101,8 +101,9 @@ app.post('/createTransaction', function(req, res)
 })
 
 app.post('/loginServer', function(req, res){
-  console.log(req.userName + ' ' + req.passWord);
-  conn.login(req.userName, req.passWord, function(err, userInfo) {
+  var data = req.body;
+  console.log(data.userName + ' ' + data.passWord);
+  conn.login(data.userName, data.passWord, function(err, userInfo) {
     if (err) { 
       res.json('fail');
       return console.log('fail');

@@ -16,24 +16,20 @@ const Login: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
             <IonList>
               <IonItem><IonTitle size="large">UserName</IonTitle></IonItem>
               <IonItem><IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem>
               <IonItem><IonTitle size="large">Password</IonTitle></IonItem>
               <IonItem><IonInput value={password} placeholder="Enter Input" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput></IonItem>
-              <IonItem><IonButton onClick={() => login(username, password)}></IonButton></IonItem>
+              <IonItem><IonButton onClick={() => login(username, password)}> Sign In </IonButton></IonItem>
             </IonList>
-          </IonToolbar>
-        </IonHeader>
       </IonContent>
     </IonPage>
   )
 };
 
 function login(username: String, password: String){
-  var url = '/login'
+  var url = 'https://ionic-reach-test-midland.herokuapp.com/loginServer'
   var options ={
     method : 'POST',
     headers: {
