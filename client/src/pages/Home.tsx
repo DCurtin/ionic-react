@@ -57,7 +57,7 @@ const Home: React.FC = () => {
         <IonHeader>
         <IonToolbar>
           <IonTitle>MDY114 THIS IS MY HOME PAGE {test} </IonTitle>
-          <IonButton onClick={authenticate} Login ></IonButton>
+          <IonButton onClick={authenticate}>Login</IonButton>
         </IonToolbar>
       </IonHeader>
         <IonList>
