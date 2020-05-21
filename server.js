@@ -123,7 +123,7 @@ app.post('/loginServer', function(req, res){
     console.log("Org ID: " + userInfo.organizationId);
     let token = hash.update(conn.accessToken).digest('hex');
     let query = {
-      text : 'SELECT * FROM salesforce.user WHERE id = $1',
+      text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
       values : [userInfo.id]
     }
     client.query(query, function(error, data) {
