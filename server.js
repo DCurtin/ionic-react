@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-var connectionString = process.env.DATABASE_URL;
+var connectionString = process.env.DATABASE_URL || 'postgresql://postgres@localhost/salesforce';
 
 var client = new pg.Client(connectionString);
 
