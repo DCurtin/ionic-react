@@ -20,15 +20,18 @@ const Login: React.FC = () => {
               <IonItem><IonTitle size="large">UserName</IonTitle></IonItem>
               <IonItem><IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem>
               <IonItem><IonTitle size="large">Password</IonTitle></IonItem>
-              <IonItem><IonInput value={password} placeholder="Enter Input" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput></IonItem>
-              <IonItem><IonButton onClick={() => login(username, password)}> Sign In </IonButton></IonItem>
+              <IonItem><IonInput type="password" value={password} placeholder="Enter Input" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput></IonItem>
+              <IonItem><IonButton onClick={() => {login(username, password); setPassword(''); setUsername('')}}> Sign In </IonButton></IonItem>
             </IonList>
       </IonContent>
     </IonPage>
   )
 };
 
-function login(username: String, password: String){
+function login(this: any, username: String, password: String){
+  var un = username;
+  var pw = password;
+  console.log(un + '  ' + pw);
   var url = 'https://ionic-reach-test-midland.herokuapp.com/loginServer'
   var options ={
     method : 'POST',
@@ -36,8 +39,8 @@ function login(username: String, password: String){
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      'userName' : username,
-      'passWord' : password
+      'userName' : un,
+      'passWord' : pw
     })
   }
 
