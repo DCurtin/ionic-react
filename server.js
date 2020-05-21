@@ -130,7 +130,7 @@ app.post('/loginServer', function(req, res){
       console.log(data);
       var query = {
         text : 'INSERT INTO salesforce.user_session(access_token, hashed_session_id, name, userid, contactid, accountid)  VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT (userid) UPDATE',
-        values: [conn.accessToken, token, data.get('name'), data.('sfid'), data.get('contactid'), data.get('accountid')]
+        values: [conn.accessToken, token, data.get('name'), data.get('sfid'), data.get('contactid'), data.get('accountid')]
       }
       client.query(query);
       res.json({'user': userInfo, 'token': token})
