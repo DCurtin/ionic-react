@@ -91,6 +91,8 @@ function getAccounts(){
 
   return Storage.get({key: 'token'}).then(function(result:any) {
     var token = String(result?.value)
+    console.log(token);
+    console.log(result);
     var options = {
       method : 'POST',
       headers: {
@@ -123,7 +125,7 @@ function makeRequestForAccounts(options : any){
       return data;
     })
     //return response.body?.getReader();
-  }).catch(function(error){
+  }).catch(function(error : any){
     console.log(error);
     console.log('go back to login');
   })
