@@ -89,7 +89,7 @@ app.post('/account', function(req, res) {
   }
   client.query(userQuery, function(error, data){
     if(error || data === undefined){
-      res.status(500).send(error);
+      res.status(500).send('session token invalid');
     }
     let user = data['rows'][0]
     //need to add conn and or time check to table
