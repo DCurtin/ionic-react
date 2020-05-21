@@ -85,7 +85,7 @@ app.post('/account', function(req, res) {
   console.log(userSessionId);
   
   checkIfAuthorized(userSessionId).then(function(userData){
-    if(data === undefined){
+    if(userData === undefined){
       res.status(500).send('session token invalid');
       return;
     }
