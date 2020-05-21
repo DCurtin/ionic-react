@@ -28,6 +28,7 @@
         "express": "^4.17.1",
         "ionicons": "^5.0.1",
         "jsforce": "^1.9.3",
+        "nodemon": "^2.0.4",
         "path": "^0.12.7",
         "pg": "^8.2.0",
         "react": "^16.13.1",
@@ -41,7 +42,7 @@
     "scripts": {
         "server": "node server.js",
         "client": "node scripts/start-client.js",
-        "start": "concurrently \"nodemon server.js\" \"node server.js\" \"npm run client\"",
+        "start": "concurrently \"node server.js\" \"npm run client\"",
         "build": "node scripts/build.js",
         "test": "echo \"Error: no test specified\" && exit 1",
         "installDeps": "yarn && cd client && yarn",
