@@ -1,7 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton, IonInput } from '@ionic/react';
 
 import React, {useState} from 'react';
-import ExploreContainer from '../components/ExploreContainer';
+import { Redirect } from 'react-router-dom';
 import './Login.css';
 
 
@@ -44,11 +44,11 @@ function login(this: any, username: String, password: String){
     })
   }
 
-  fetch(url, options).then(function(response){
+  return fetch(url, options).then(function(response){
     response.json().then(function(this:any, data){
       console.log('login json');
       console.log(data);
-      this.props.history.push('/home');
+      return <Redirect to="/home" />
     })
   })
 }
