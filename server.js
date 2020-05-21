@@ -140,6 +140,8 @@ app.post('/createTransaction', function(req, res){
         console.log(res.rows[0])
       }
     });
+  }).catch(function(error){
+    res.status(500).send('session token invalid');
   })
 });
 

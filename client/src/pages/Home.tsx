@@ -86,9 +86,9 @@ const Home: React.FC = () => {
 
 function getAccounts(){
 
-  return Storage.get({key: 'token'}).then(function(result:any) {
-    var token = String(result?.value)
-    console.log(token);
+  return getToken().then(function(result:any) {
+    var userSession = result.value 
+    console.log(userSession);
     console.log(result);
     var options = {
       method : 'POST',
@@ -96,7 +96,7 @@ function getAccounts(){
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'userSession' : token
+        'userSession' : userSession
       })
     }
 
@@ -106,6 +106,10 @@ function getAccounts(){
     return [];
   })
   
+}
+
+function getToken(){
+  return Storage.get({key: 'token'});
 }
 
 function makeRequestForAccounts(options : any){
@@ -130,35 +134,22 @@ function makeRequestForAccounts(options : any){
 
 function createTransaction(accountId : String)
 {
-  console.log(accountId)
-  var url = '/createTransaction';
-  var options = {
-    method : 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'sfid' : accountId
-    })
-  }
-
-  return fetch(url, options);
-}
-
-function login(){}
-
-function authenticate(){
-  var url = 'https://test.salesforce.com/services/oauth2/authorize?response_type=code&client_id=3MVG9ahGHqp.k2_wp5KNZXDK5mBqaJaRv6ss6l7gQkGLZfriwyGa_1aRXE88g0W5oT9rwlJQ31ieo52ucBrJm&redirect_uri=http://localhost:8100&state=init&prompt=login&display=touch';
-  let browserRef = window.open(url, '_blank', 'location=no');
-  browserRef?.addEventListener("loadstart", (event: any) => {
-    console.log(event.url);
-    if ((event.url).indexOf('?token=') !== -1) {
-      let token = event.url.slice(event.url.indexOf('?token=') + '?token='.length);
-      // here is your token, now you can close the InAppBrowser
-      browserRef?.close();
+  return getToken().then(function(result){
+    var userSession = result.value;
+    console.log(accountId)
+    var url = '/createTransaction';
+    var options = {
+      method : 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'sfid' : accountId,
+        'userSession' : userSession
+      })
     }
+    return fetch(url, options);
   })
-  
 }
 
 export default Home;
