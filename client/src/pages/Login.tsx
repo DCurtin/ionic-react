@@ -54,6 +54,9 @@ function login(username: String, password: String, setGoToHome : Function){
     })
   }
   fetch(url, options).then(function(response :any){
+    if(!response.ok){
+      throw Error(response.statusText);
+    }
     response.json().then(function(data : any){
       console.log('login json');
       console.log(data);
