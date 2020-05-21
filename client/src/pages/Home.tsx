@@ -15,7 +15,7 @@ const Home: React.FC = () => {
   //console.log(result[0])
   if(result !== undefined && result.length <= 1 ){
 
-    getAccounts().then(function(data){
+    getAccounts().then(function(data : any){
     //console.log('in get accounts response');
     //console.log(data);
     //console.log(data[0].sfid);
@@ -48,7 +48,7 @@ const Home: React.FC = () => {
     })
   }
 
-  return (result.length === 1) ? (
+  return (result === undefined || result.length === 1) ? (
     <IonPage>
       <IonHeader>
         <IonToolbar>
