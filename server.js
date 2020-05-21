@@ -108,7 +108,7 @@ function checkIfAuthorized(userSessionId){
     text : 'SELECT * FROM salesforce.user_session WHERE hashed_session_id = $1',
     values : [userSessionId]
   }
-  return client.query(userQuery, function(error, data){
+  return client.query(userQuery).then(function(error, data){
     if(error || data === undefined){
       return null;
     }
