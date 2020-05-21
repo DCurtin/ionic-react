@@ -43,8 +43,11 @@ const Home: React.FC = () => {
   {
     Storage.get({key: 'name'}).then(function(result)
     {
+      var value : string
+      value = String(result);
       console.log(result);
-      setUserName(result);
+      setUserName(value);
+      
     })
   }
 
