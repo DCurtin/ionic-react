@@ -128,7 +128,6 @@ app.post('/loginServer', function(req, res){
   console.log(data.userName + ' ' + data.passWord);
   conn.login(data.userName, data.passWord, function(err, userInfo) {
     if (err) {
-      res.json(err);
       res.status(500).send(err);
       console.log(err);
       return console.log('fail');
