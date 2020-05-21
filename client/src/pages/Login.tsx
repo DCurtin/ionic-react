@@ -55,11 +55,11 @@ function authenticate(){
   let browserRef = window.open(url, '_blank', 'location=no');
   browserRef?.addEventListener("loadstart", (event: any) => {
     console.log(event.url);
-    if ((event.url).indexOf('?token=') !== -1) {
-      let token = event.url.slice(event.url.indexOf('?token=') + '?token='.length);
+    //if ((event.url).indexOf('?token=') !== -1) {
+      //let token = event.url.slice(event.url.indexOf('?token=') + '?token='.length);
       // here is your token, now you can close the InAppBrowser
       browserRef?.close();
-    }
+    //}
   })
   
 }
