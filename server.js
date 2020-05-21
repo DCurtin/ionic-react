@@ -92,16 +92,17 @@ app.post('/account', function(req, res) {
     let user = userData['rows'][0]
     //need to add conn and or time check to table
     console.log('test');
-    client.query('SELECT * FROM ' + accountTable, function(data, error) {
+    client.query('SELECT * FROM ' + accountTable, function(data) {
+      console.log(data);
+      //res.send(data.rows);
+      res.json(data['rows']);
+    }).then(function(error){
       if(error){
-        console.log('erro in account query')
+        console.log('error in account query')
         console.log(error);
         res.json({'error' : error.toString()})
         return;
       }
-      console.log(data);
-      //res.send(data.rows);
-      res.json(data['rows']);
     })
   }).catch(function(error){
     res.status(500).send('session token invalid');
