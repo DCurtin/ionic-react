@@ -21,7 +21,7 @@ const Login: React.FC = () => {
               <IonItem><IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem>
               <IonItem><IonTitle size="large">Password</IonTitle></IonItem>
               <IonItem><IonInput type="password" value={password} placeholder="Enter Input" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput></IonItem>
-              <IonItem><IonButton onClick={() => {login(username, password); setPassword(''); setUsername('')}}> Sign In </IonButton></IonItem>
+              <IonItem><IonButton onClick={() => {login(username, password)}}> Sign In </IonButton></IonItem>
             </IonList>
       </IonContent>
     </IonPage>
