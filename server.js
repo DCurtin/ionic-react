@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var pg = require('pg');
 var jsforce = require('jsforce');
 var app = express();
+const hash = require('crypto').createHash('md5');
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -120,6 +121,8 @@ app.post('/loginServer', function(req, res){
     // logged in user property
     console.log("User ID: " + userInfo.id);
     console.log("Org ID: " + userInfo.organizationId);
+    let token = hash.update(conn.accessToken).digest('hex');
+    res.json({'user': userInfo, 'token': token})
     // ...
   });
 })
