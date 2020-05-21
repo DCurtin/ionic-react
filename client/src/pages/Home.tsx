@@ -55,12 +55,6 @@ const Home: React.FC = () => {
     </IonPage>
   ) : (
       <IonContent>
-        <IonHeader>
-        <IonToolbar>
-          <IonTitle>MDY114 THIS IS MY HOME PAGE {test} </IonTitle>
-          <IonButton onClick={authenticate}>Login</IonButton>
-        </IonToolbar>
-      </IonHeader>
         <IonList>
           <IonItem>SFID And Name</IonItem>
           {(result.map(function(row: any, i : any){

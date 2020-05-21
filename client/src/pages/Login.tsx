@@ -1,18 +1,22 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton, IonInput } from '@ionic/react';
-
+import { Plugins } from '@capacitor/core';
 import React, {useState} from 'react';
 import { Redirect } from 'react-router-dom';
 import './Login.css';
 
+const { Storage } = Plugins;
 
 const Login: React.FC = () => {
-  const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-  return (
+  const [password, setPassword] = useState('');
+  const [goToHome, setGoToHome] = useState(false);
+  console.log('rerunning')
+  console.log(goToHome)
+  return (!goToHome) ? (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-  <IonTitle>Login Page </IonTitle>
+          <IonTitle>Login Page </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -21,17 +25,18 @@ const Login: React.FC = () => {
               <IonItem><IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem>
               <IonItem><IonTitle size="large">Password</IonTitle></IonItem>
               <IonItem><IonInput type="password" value={password} placeholder="Enter Input" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput></IonItem>
-              <IonItem><IonButton onClick={() => {login(username, password)}}> Sign In </IonButton></IonItem>
+              <IonItem><IonButton onClick={() => {login(username, password, setGoToHome)}}> Sign In </IonButton></IonItem>
             </IonList>
       </IonContent>
     </IonPage>
-  )
+  ):(<Redirect to='/home'/>);
 };
 
-function login(this: any, username: String, password: String){
+function login(username: String, password: String, setGoToHome : Function){
   var un = username;
   var pw = password;
   console.log(un + '  ' + pw);
+  
   var url = '/loginServer'
   var options ={
     method : 'POST',
@@ -43,12 +48,15 @@ function login(this: any, username: String, password: String){
       'passWord' : pw
     })
   }
-
-  return fetch(url, options).then(function(response){
-    response.json().then(function(this:any, data){
+  fetch(url, options).then(function(response){
+    response.json().then(function(data){
       console.log('login json');
       console.log(data);
-      return <Redirect to="/home" />
+
+      setGoToHome(true);
+    }).catch(function (err) {
+      console.log(err);
+      setGoToHome(false);
     })
   })
 }
