@@ -122,6 +122,9 @@ function makeRequestForAccounts(options : any){
       return data;
     })
     //return response.body?.getReader();
+  }).catch(function(error){
+    console.log(error);
+    console.log('go back to login');
   })
 }
 
