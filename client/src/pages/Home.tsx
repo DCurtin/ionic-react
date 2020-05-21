@@ -13,7 +13,7 @@ const Home: React.FC = () => {
 
   console.log(result.length)
   console.log(result[0])
-  if(result.length === 1){
+  if(result.length <= 1 ){
 
     getAccounts().then(function(data){
     console.log('in get accounts response');
@@ -104,6 +104,7 @@ function getAccounts(){
     return makeRequestForAccounts(options);
   }).catch(function(err: any){
     console.log('error: ' + err);
+    return [];
   })
   
 }

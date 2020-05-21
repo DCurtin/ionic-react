@@ -80,7 +80,7 @@ app.use('/googleplex', function(req, res){
 })
 
 app.use('/account', function(req, res) {
-  var userToken = req.body.token;
+  var userToken = req.body.userSession;
   console.log(userToken);
   var userQuery = {
     text : 'SELECT * FROM salesforce.user WHERE hashed_session_id = $1',
