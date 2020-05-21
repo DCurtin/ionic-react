@@ -111,6 +111,9 @@ function getAccounts(){
 function makeRequestForAccounts(options : any){
   var url = '/account';
   return fetch(url, options).then( function(response){
+    if(!response.ok){
+      throw Error(response.statusText);
+    }
     console.log('in fetch');
     return response.json().then(function(data)
     {

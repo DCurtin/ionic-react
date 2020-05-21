@@ -81,6 +81,7 @@ app.use('/googleplex', function(req, res){
 
 app.use('/account', function(req, res) {
   var userToken = req.body.token;
+  console.log(userToken);
   var userQuery = {
     text : 'SELECT * FROM salesforce.user WHERE hashed_session_id = $1',
     values : [userToken]
@@ -89,7 +90,7 @@ app.use('/account', function(req, res) {
     if(error){
       res.status(500).send(error);
     }
-    let user = data.rows[0]
+    let user = data['rows'][0]
     //need to add conn and or time check to table
     console.log('test');
     client.query('SELECT * FROM ' + accountTable, function(error, data) {
