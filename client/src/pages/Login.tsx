@@ -42,9 +42,10 @@ function login(username: String, password: String){
   }
 
   fetch(url, options).then(function(response){
-    response.json().then(function(data){
+    response.json().then(function(this:any, data){
       console.log('login json');
       console.log(data);
+      this.props.history.push('/home');
     })
   })
 }
