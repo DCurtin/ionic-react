@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var pg = require('pg');
 var jsforce = require('jsforce');
 var app = express();
-const hash = require('crypto').createHash('md5');
+
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -137,6 +137,7 @@ app.post('/createTransaction', function(req, res){
 
 app.post('/loginServer', function(req, res){
   var data = req.body;
+  const hash = require('crypto').createHash('md5');
   console.log(data.userName + ' ' + data.passWord);
   conn.login(data.userName, data.passWord, function(err, userInfo) {
     if (err) {
