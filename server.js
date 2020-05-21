@@ -79,7 +79,8 @@ app.use('/googleplex', function(req, res){
   res.json('googleplex')
 })
 
-app.use('/account', function(req, res) {
+app.post('/account', function(req, res) {
+  console.log('body :' + req.body);
   var userToken = req.body.userSession;
   console.log(userToken);
   var userQuery = {
