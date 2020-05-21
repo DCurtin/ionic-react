@@ -27,8 +27,8 @@ var conn = new jsforce.Connection({
   oauth2 : {
     // you can change loginUrl to connect to sandbox or prerelease env.
     // loginUrl : 'https://test.salesforce.com',
-    //loginUrl : 'https://test.salesforce.com',
-    loginUrl : 'https://dcurtin-iraonline.cs17.force.com',
+    loginUrl : 'https://test.salesforce.com',
+    //loginUrl : 'https://dcurtin-iraonline.cs17.force.com/client',
     clientId : process.env.SFClient_Id,
     clientSecret : process.env.SFClient_Sec,
     redirectUri : process.env.SF_Redirect
