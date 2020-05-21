@@ -81,15 +81,13 @@ app.use('/googleplex', function(req, res){
 
 app.post('/account', function(req, res) {
   console.log('body :' + req.body);
-  var userToken = req.body.userSession;
-  console.log(userToken);
-  var userQuery = {
-    text : 'SELECT * FROM salesforce.user_session WHERE hashed_session_id = $1',
-    values : [userToken]
-  }
-  client.query(userQuery, function(error, data){
-    if(error || data === undefined){
+  var userSessionId = req.body.userSession;
+  console.log(userSessionId);
+  
+  checkIfAuthorized(userSessionId).then(function(data){
+    if(data === null){
       res.status(500).send('session token invalid');
+      return;
     }
     let user = data['rows'][0]
     //need to add conn and or time check to table
@@ -101,30 +99,47 @@ app.post('/account', function(req, res) {
       //res.send(data.rows);
       res.json(data.rows);
     })
-
-
-
-  })
+  });
 
 });
 
+function checkIfAuthorized(userSessionId){
+  var userQuery = {
+    text : 'SELECT * FROM salesforce.user_session WHERE hashed_session_id = $1',
+    values : [userSessionId]
+  }
+  return client.query(userQuery, function(error, data){
+    if(error || data === undefined){
+      return null;
+    }
+    return data;
+  });
+}
+
 app.post('/createTransaction', function(req, res)
 {
-  var data = req.body;
-  //console.log(req);
-  console.log('Account id ' + data.sfid);
-  const query = {
-    text: 'INSERT INTO salesforce.transaction__c(paybable_to_from__c, recordtypeid, account__c, assigned_to__c) VALUES($1, $2, $3, $4)',
-    values: ['test 123', '01230000000Ne2TAAS', data.sfid, '0050M00000Dv1h5QAB'],
-  }
-  client.query(query, (err, res) => {
-    if (err) {
-      console.log(err.stack)
-    } else {
-      console.log(res.rows[0])
+  var responseBody = req.body;
+  var userSessionId = responseBody.userSession;
+  
+  checkIfAuthorized(userSessionId).then(function(data){
+    if(data === null){
+      res.status(500).send('session token invalid');
     }
+    //console.log(req);
+    console.log('Account id ' + responseBody.sfid);
+    const query = {
+      text: 'INSERT INTO salesforce.transaction__c(paybable_to_from__c, recordtypeid, account__c, assigned_to__c) VALUES($1, $2, $3, $4)',
+      values: ['test 123', '01230000000Ne2TAAS', responseBody.sfid, '0050M00000Dv1h5QAB'],
+    }
+    client.query(query, (err, res) => {
+      if (err) {
+        console.log(err.stack)
+      } else {
+        console.log(res.rows[0])
+      }
+    })
   })
-})
+};
 
 app.post('/loginServer', function(req, res){
   var data = req.body;

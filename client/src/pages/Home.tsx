@@ -11,14 +11,14 @@ const Home: React.FC = () => {
   const [result, setResult] = useState([{any : String}]);
   const [userName, setUserName] = useState('');
 
-  console.log(result.length)
-  console.log(result[0])
+  //console.log(result.length)
+  //console.log(result[0])
   if(result.length <= 1 ){
 
     getAccounts().then(function(data){
-    console.log('in get accounts response');
-    console.log(data);
-    console.log(data[0].sfid);
+    //console.log('in get accounts response');
+    //console.log(data);
+    //console.log(data[0].sfid);
     //return data[0].sfid;
     /*data?.read().then(function({done, value}){
       if(done){
@@ -33,9 +33,6 @@ const Home: React.FC = () => {
     })*/
     setResult(data);
     
-  }).finally(function(){
-    console.log('done');
-
   });
   }
 
@@ -78,7 +75,7 @@ const Home: React.FC = () => {
         <IonList>
           <IonItem>SFID And Name</IonItem>
           {(result.map(function(row: any, i : any){
-            console.log(row);
+            //console.log(row);
             return <IonItem>{row['sfid']}  {row['name']} <IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonItem>
           }))}
         </IonList>
