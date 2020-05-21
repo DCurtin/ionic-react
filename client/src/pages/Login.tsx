@@ -36,6 +36,11 @@ function login(username: String, password: String, setGoToHome : Function){
   var un = username;
   var pw = password;
   console.log(un + '  ' + pw);
+
+  if(un === '' || pw === ''){
+    setGoToHome(false);
+    return;
+  }
   
   var url = '/loginServer'
   var options ={
@@ -49,7 +54,7 @@ function login(username: String, password: String, setGoToHome : Function){
     })
   }
   fetch(url, options).then(function(response){
-    response.json().then(function(data){
+    response.json().then(function(data, err){
       console.log('login json');
       console.log(data);
       Storage.set({key: 'token', value :data['token'] });

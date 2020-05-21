@@ -79,12 +79,30 @@ app.use('/googleplex', function(req, res){
 })
 
 app.use('/account', function(req, res) {
-  console.log('test');
-  client.query('SELECT * FROM ' + accountTable, function(error, data) {
-    console.log(` MDY114 ACCOUNTS ${data.rows}`)
-    //res.send(data.rows);
-    res.json(data.rows);
+  var userToken = req.body.token;
+  var userQuery = {
+    text : 'SELECT * FROM salesforce.user WHERE hashed_session_id = $1',
+    values : [userToken]
+  }
+  client.query(userQuery, function(error, data){
+    if(error){
+      res.status(500).send(error);
+    }
+    let user = data.rows[0]
+    //need to add conn and or time check to table
+    console.log('test');
+    client.query('SELECT * FROM ' + accountTable, function(error, data) {
+      if(error){
+        res.json({'error' : error.toString()})
+      }
+      //res.send(data.rows);
+      res.json(data.rows);
+    })
+
+
+
   })
+
 });
 
 app.post('/createTransaction', function(req, res)
@@ -111,6 +129,7 @@ app.post('/loginServer', function(req, res){
   conn.login(data.userName, data.passWord, function(err, userInfo) {
     if (err) {
       res.json(err);
+      res.status(500).send(err);
       console.log(err);
       return console.log('fail');
     }

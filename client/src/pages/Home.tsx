@@ -88,10 +88,28 @@ const Home: React.FC = () => {
 
 
 function getAccounts(){
+
+  return Storage.get({key: 'token'}).then(function(result:any) {
+    var token = String(result?.value)
+    var options = {
+      method : 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'userSession' : token
+      })
+    }
+
+    return makeRequestForAccounts(options);
+  }).catch(function(err: any){
+    console.log('error: ' + err);
+  })
+  
+}
+
+function makeRequestForAccounts(options : any){
   var url = '/account';
-  var options = {
-    method : 'POST'
-  }
   return fetch(url, options).then( function(response){
     console.log('in fetch');
     return response.json().then(function(data)
