@@ -84,25 +84,25 @@ app.post('/account', function(req, res) {
   var userSessionId = req.body.userSession;
   console.log(userSessionId);
   
-  checkIfAuthorized(userSessionId).then(function(data, error){
-    console.log('finished query');
-    console.log('error ' + JSON.stringify(error));
-    console.log(error);
-    console.log('data: ' + data);
-    if(error || data === undefined){
+  checkIfAuthorized(userSessionId).then(function(userData){
+    if(data === undefined){
       res.status(500).send('session token invalid');
       return;
     }
-    let user = data['rows'][0]
+    let user = userData['rows'][0]
     //need to add conn and or time check to table
     console.log('test');
     client.query('SELECT * FROM ' + accountTable, function(data, error) {
       if(error){
         res.json({'error' : error.toString()})
+        return;
       }
+      console.logs(data);
       //res.send(data.rows);
-      res.json(data.rows);
+      res.json(data['rows']);
     })
+  }).catch(function(error){
+    res.status(500).send('session token invalid');
   });
 
 });
