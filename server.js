@@ -84,11 +84,11 @@ app.post('/account', function(req, res) {
   var userToken = req.body.userSession;
   console.log(userToken);
   var userQuery = {
-    text : 'SELECT * FROM salesforce.user WHERE hashed_session_id = $1',
+    text : 'SELECT * FROM salesforce.user_session WHERE hashed_session_id = $1',
     values : [userToken]
   }
   client.query(userQuery, function(error, data){
-    if(error){
+    if(error || data === undefined){
       res.status(500).send(error);
     }
     let user = data['rows'][0]
