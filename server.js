@@ -166,6 +166,7 @@ app.post('/loginServer', function(req, res){
       }
       client.query(query).then(function(result){
         console.log(result);
+        res.json({'user': userIdentity, 'token': token})
       }).catch(function(err){
         console.log(err);
       });
@@ -174,7 +175,6 @@ app.post('/loginServer', function(req, res){
         'name' : row['name']
       }
 
-      res.json({'user': userIdentity, 'token': token})
     })
     // ...
   });
