@@ -116,8 +116,7 @@ function checkIfAuthorized(userSessionId){
   });
 }
 
-app.post('/createTransaction', function(req, res)
-{
+app.post('/createTransaction', function(req, res){
   var responseBody = req.body;
   var userSessionId = responseBody.userSession;
   
@@ -137,9 +136,9 @@ app.post('/createTransaction', function(req, res)
       } else {
         console.log(res.rows[0])
       }
-    })
+    });
   })
-};
+});
 
 app.post('/loginServer', function(req, res){
   var data = req.body;
