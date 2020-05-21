@@ -144,7 +144,7 @@ app.post('/loginServer', function(req, res){
         'name' : row['name']
       }
 
-      res.json({'user': userInfo, 'token': token})
+      res.json({'user': userIdentity, 'token': token})
     })
     // ...
   });
