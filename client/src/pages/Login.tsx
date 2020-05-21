@@ -53,17 +53,17 @@ function login(username: String, password: String, setGoToHome : Function){
       'passWord' : pw
     })
   }
-  fetch(url, options).then(function(response){
-    response.json().then(function(data, err){
+  fetch(url, options).then(function(response :any){
+    response.json().then(function(data : any){
       console.log('login json');
       console.log(data);
       Storage.set({key: 'token', value :data['token'] });
       Storage.set({key: 'name', value :data['user'].name });
       setGoToHome(true);
-    }).catch(function (err) {
-      console.log(err);
-      setGoToHome(false);
     })
+  }).catch(function(error){
+      console.log(error);
+      setGoToHome(false);
   })
 }
 
