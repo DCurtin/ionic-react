@@ -1,13 +1,15 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton } from '@ionic/react';
-
+import { Plugins } from '@capacitor/core';
 import React, {useState} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
 
+const { Storage } = Plugins;
+
 const Home: React.FC = () => {
-  var test = 1 + 2 + 3 + 4;
   var collection = [{any : String}];
   const [result, setResult] = useState([{any : String}]);
+  const [userName, setUserName] = useState('');
 
   console.log(result.length)
   console.log(result[0])
@@ -36,11 +38,21 @@ const Home: React.FC = () => {
 
   });
   }
-  return (!result) ? (
+
+  if(userName === '')
+  {
+    Storage.get({key: 'name'}).then(function(result)
+    {
+      console.log(result);
+      setUserName(result);
+    })
+  }
+
+  return (result.length === 1) ? (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-  <IonTitle>MDY114 THIS IS MY HOME PAGE {test} </IonTitle>
+  <IonTitle>MDY114 THIS IS MY HOME PAGE {userName} </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -55,6 +67,11 @@ const Home: React.FC = () => {
     </IonPage>
   ) : (
       <IonContent>
+        <IonHeader>
+        <IonToolbar>
+          <IonTitle>MDY114 THIS IS MY HOME PAGE {userName} </IonTitle>
+        </IonToolbar>
+      </IonHeader>
         <IonList>
           <IonItem>SFID And Name</IonItem>
           {(result.map(function(row: any, i : any){
