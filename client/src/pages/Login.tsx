@@ -32,7 +32,7 @@ function login(this: any, username: String, password: String){
   var un = username;
   var pw = password;
   console.log(un + '  ' + pw);
-  var url = 'https://ionic-reach-test-midland.herokuapp.com/loginServer'
+  var url = '/loginServer'
   var options ={
     method : 'POST',
     headers: {
@@ -45,9 +45,10 @@ function login(this: any, username: String, password: String){
   }
 
   fetch(url, options).then(function(response){
-    response.json().then(function(data){
+    response.json().then(function(this:any, data){
       console.log('login json');
       console.log(data);
+      this.props.history.push('/home');
     })
   })
 }
@@ -57,11 +58,11 @@ function authenticate(){
   let browserRef = window.open(url, '_blank', 'location=no');
   browserRef?.addEventListener("loadstart", (event: any) => {
     console.log(event.url);
-    if ((event.url).indexOf('?token=') !== -1) {
-      let token = event.url.slice(event.url.indexOf('?token=') + '?token='.length);
+    //if ((event.url).indexOf('?token=') !== -1) {
+      //let token = event.url.slice(event.url.indexOf('?token=') + '?token='.length);
       // here is your token, now you can close the InAppBrowser
       browserRef?.close();
-    }
+    //}
   })
   
 }

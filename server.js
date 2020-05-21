@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var pg = require('pg');
 var jsforce = require('jsforce');
 var app = express();
+const hash = require('crypto').createHash('md5');
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -14,7 +15,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-var connectionString = process.env.DATABASE_URL;
+var connectionString = process.env.DATABASE_URL || 'postgresql://postgres@localhost/salesforce';
+console.log(connectionString);
 
 var client = new pg.Client(connectionString);
 
@@ -119,6 +121,20 @@ app.post('/loginServer', function(req, res){
     // logged in user property
     console.log("User ID: " + userInfo.id);
     console.log("Org ID: " + userInfo.organizationId);
+    let token = hash.update(conn.accessToken).digest('hex');
+    let query = {
+      text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
+      values : [userInfo.id]
+    }
+    client.query(query, function(error, data) {
+      console.log(data);
+      var query = {
+        text : 'INSERT INTO salesforce.user_session(access_token, hashed_session_id, name, userid, contactid, accountid)  VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT (userid) UPDATE',
+        values: [conn.accessToken, token, data.get('name'), data.get('sfid'), data.get('contactid'), data.get('accountid')]
+      }
+      client.query(query);
+      res.json({'user': userInfo, 'token': token})
+    })
     // ...
   });
 })
