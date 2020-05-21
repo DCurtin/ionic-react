@@ -133,7 +133,11 @@ app.post('/loginServer', function(req, res){
         text : 'INSERT INTO salesforce.user_session(access_token, hashed_session_id, name, userid, contactid, accountid)  VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT (userid) UPDATE SET access_token = EXCLUDED.access_token, hashed_session_id = EXCLUDED.hashed_session_id',
         values: [conn.accessToken, token, row['name'], row['sfid'], row['contactid'], row['accountid']]
       }
-      client.query(query);
+      client.query(query).then(function(result){
+        console.log(result);
+      }).catch(function(err){
+        console.log(err);
+      });
       res.json({'user': userInfo, 'token': token})
     })
     // ...
