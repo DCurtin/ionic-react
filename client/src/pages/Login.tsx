@@ -52,7 +52,8 @@ function login(username: String, password: String, setGoToHome : Function){
     response.json().then(function(data){
       console.log('login json');
       console.log(data);
-      Storage.set({key: 'token', value :data['token'] })
+      Storage.set({key: 'token', value :data['token'] });
+      Storage.set({key: 'name', value :data['user'].name });
       setGoToHome(true);
     }).catch(function (err) {
       console.log(err);

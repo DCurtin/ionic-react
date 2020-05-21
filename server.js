@@ -130,7 +130,7 @@ app.post('/loginServer', function(req, res){
       var row = data['rows'][0];
       console.log(row['sfid']);
       var query = {
-        //need to handle upsert
+        //upsert record
         text : 'INSERT INTO salesforce.user_session(access_token, hashed_session_id, name, userid, contactid, accountid)  VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT (userid) DO UPDATE SET access_token = EXCLUDED.access_token, hashed_session_id = EXCLUDED.hashed_session_id',
         values: [conn.accessToken, token, row['name'], row['sfid'], row['contactid'], row['accountid']]
       }
@@ -139,6 +139,11 @@ app.post('/loginServer', function(req, res){
       }).catch(function(err){
         console.log(err);
       });
+      let userIdentity = {
+        'userId' : userInfo.id,
+        'name' : row['name']
+      }
+
       res.json({'user': userInfo, 'token': token})
     })
     // ...
