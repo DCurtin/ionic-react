@@ -94,10 +94,12 @@ app.post('/account', function(req, res) {
     console.log('test');
     client.query('SELECT * FROM ' + accountTable, function(data, error) {
       if(error){
+        console.log('erro in account query')
+        console.log(error);
         res.json({'error' : error.toString()})
         return;
       }
-      console.logs(data);
+      console.log(data);
       //res.send(data.rows);
       res.json(data['rows']);
     })
