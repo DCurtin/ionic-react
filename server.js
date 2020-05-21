@@ -85,6 +85,9 @@ app.post('/account', function(req, res) {
   console.log(userSessionId);
   
   checkIfAuthorized(userSessionId).then(function(error, data){
+    console.log('finished query');
+    console.log('error ' + error);
+    console.log('data: ' + data);
     if(error || data === undefined){
       res.status(500).send('session token invalid');
       return;
@@ -104,6 +107,7 @@ app.post('/account', function(req, res) {
 });
 
 function checkIfAuthorized(userSessionId){
+  console.log('runing query ' + userSessionId);
   var userQuery = {
     text : 'SELECT * FROM salesforce.user_session WHERE hashed_session_id = $1',
     values : [userSessionId]
