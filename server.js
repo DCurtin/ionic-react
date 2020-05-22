@@ -167,10 +167,6 @@ app.post('/loginServer', function(req, res){
   conn.login(data.userName, data.passWord, function(err, userInfo) {
     console.log('token: ' + conn.accessToken)
     var token = hash.update(conn.accessToken).digest('hex');
-    var userQuery = {
-        text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
-        values : [userInfo.id]
-    }
     
     if (err) {
       res.status(500).send(err);
@@ -188,9 +184,13 @@ app.post('/loginServer', function(req, res){
       }, minutes);
     }
     //console.log(userInfo);
-    console.log('-----------------')
+    console.log('-----------------');
     //console.log(conn);
     
+    var userQuery = {
+        text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
+        values : [userInfo.id]
+    }
     client.query(userQuery).then(function(userData) {
       console.log('user query');
       console.log(userData);
