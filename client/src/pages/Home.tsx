@@ -101,7 +101,7 @@ function logout(location : any){
     }
 
     fetch(url, options).then(()=>{
-      location.state('/login');
+      location.state ='/login';
     })
   })
 }
