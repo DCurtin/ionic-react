@@ -89,8 +89,8 @@ app.post('/account', function(req, res) {
       res.status(500).send('session token invalid');
       return;
     }
-    console.log(user);
     let user = userData['rows'][0]
+    console.log(user);
     //need to add conn and or time check to table
     console.log('test');
     client.query('SELECT * FROM ' + accountTable).then(function(data) {
