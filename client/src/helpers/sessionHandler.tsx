@@ -6,18 +6,21 @@ function callOutFetch(url : string, options : any){
         body = JSON.parse(options.body);
     }
 
-    Storage.get({key: 'token'}).then(function(result){
+    return Storage.get({key: 'token'}).then(function(result){
+        console.log('getting key')
+        console.log(result)
         body['userSession'] = result.value;
         options.body = JSON.stringify(body);
+        return fetch(url, options);
 
     }).catch(function(err){
         console.log('error: ' + err);
         return null;
     })
-    return fetch(url, options);
 }
 
 function saveSession(token : string, userName : string, sfid : string){
+    console.log('saving token: ' + token);
     Storage.set({key: 'token', value: token });
     Storage.set({key: 'name', value: userName });
 }
