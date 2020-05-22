@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem,
 import { Plugins } from '@capacitor/core';
 import React, {useState} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
-import { useLocation } from 'react-router-dom';
+import sessionHandler from '../helpers/sessionHandler';
 import { useHistory } from 'react-router-dom';
 import './Home.css';
 
@@ -87,56 +87,28 @@ const Home: React.FC = () => {
 };
 
 function logout(history : any){
-  getToken().then(function(result){
-    var userSession = result.value;
-    var url = '/logout'
-    var options = {
-      method : 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'userSession' : userSession
-      })
+  var url = '/logout'
+  var options = {
+    method : 'POST',
+    headers: {
+      'Content-Type': 'application/json'
     }
+  }
 
-    fetch(url, options).then(()=>{
-      history.replace('/login');
-    })
+    sessionHandler.callOutFetch(url, options).then(()=>{
+    history.replace('/login');
   })
 }
 
 function getAccounts(){
-
-  return getToken().then(function(result:any) {
-    var userSession = result.value 
-    console.log(userSession);
-    console.log(result);
-    var options = {
-      method : 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'userSession' : userSession
-      })
-    }
-
-    return makeRequestForAccounts(options);
-  }).catch(function(err: any){
-    console.log('error: ' + err);
-    return [];
-  })
-  
-}
-
-function getToken(){
-  return Storage.get({key: 'token'});
-}
-
-function makeRequestForAccounts(options : any){
   var url = '/account';
-  return fetch(url, options).then( function(response){
+  var options = {
+    method : 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }}
+
+  return sessionHandler.callOutFetch(url, options).then( function(response){
     if(!response.ok){
       throw Error(response.statusText);
     }
@@ -156,22 +128,18 @@ function makeRequestForAccounts(options : any){
 
 function createTransaction(accountId : String)
 {
-  return getToken().then(function(result){
-    var userSession = result.value;
-    console.log(accountId)
-    var url = '/createTransaction';
-    var options = {
-      method : 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'sfid' : accountId,
-        'userSession' : userSession
-      })
-    }
-    return fetch(url, options);
-  })
+  var url = '/createTransaction';
+  var options = {
+    method : 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'sfid' : accountId
+    })
+  }
+  return sessionHandler.callOutFetch(url, options);
+
 }
 
 export default Home;

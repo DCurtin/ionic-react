@@ -5,6 +5,9 @@ import { useHistory } from 'react-router-dom';
 
 import React, {useState} from 'react';
 import { Redirect } from 'react-router-dom';
+
+import sessionHandler from '../helpers/sessionHandler'
+
 import './Login.css';
 
 const { Storage } = Plugins;
@@ -64,8 +67,9 @@ function login(username: String, password: String, history : any){
     response.json().then(function(data : any){
       console.log('login json');
       console.log(data);
-      Storage.set({key: 'token', value :data['token'] });
-      Storage.set({key: 'name', value :data['user'].name });
+      //Storage.set({key: 'token', value :data['token'] });
+      //Storage.set({key: 'name', value :data['user'].name });
+      sessionHandler.saveSession(data['token'], data['user'].name, 'test');
       history.push('/home');
     })
   }).catch(function(error){
