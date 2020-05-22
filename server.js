@@ -173,11 +173,12 @@ app.post('/loginServer', function(req, res){
 
     if(cachedConnections[token] === undefined)
     {
-      var seconds = 5000;
+      var second = 1000;
+      var minutes = 60 * second;
       cachedConnections[token] = conn;
       setTimeout(function(conn){
         console.log('logging out user')
-      }, seconds);
+      }, minutes);
     }
     /*console.log(userInfo);
     console.log('-----------------')
