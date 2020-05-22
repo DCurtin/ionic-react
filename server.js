@@ -106,6 +106,8 @@ app.post('/account', function(req, res) {
       }
     })
   }).catch(function(error){
+    console.log('109 exception on query');
+    console.log(error);
     res.status(500).send('session token invalid');
   });
 
