@@ -232,7 +232,7 @@ function scheduleSessionTimeout(minutes, token){
   var second = 1000;
   var minute = 60 * second;
   var timeoutInMinutes = minute * minutes;
-  setTimeout(removeSession(token), timeoutInMinutes);
+  setTimeout(removeSession, timeoutInMinutes, token);
 }
 
 function removeSession(token){
