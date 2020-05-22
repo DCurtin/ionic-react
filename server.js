@@ -137,11 +137,12 @@ app.post('/createTransaction', function(req, res){
       text: 'INSERT INTO salesforce.transaction__c(paybable_to_from__c, recordtypeid, account__c, assigned_to__c) VALUES($1, $2, $3, $4)',
       values: ['test 123', '01230000000Ne2TAAS', responseBody.sfid, '0050M00000Dv1h5QAB'],
     }
-    client.query(query, (err, res) => {
+    client.query(query, (err, response) => {
       if (err) {
         console.log(err.stack)
       } else {
-        console.log(res.rows[0])
+        console.log(response.rows[0])
+        res.json('ok');
       }
     });
   }).catch(function(error){
