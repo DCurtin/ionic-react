@@ -12,7 +12,6 @@ const Home: React.FC = () => {
   const location = useLocation();
   const [result, setResult] = useState([{any : String}]);
   const [userName, setUserName] = useState('');
-  const [inActiveSession, setInActiveSession] = useState(false);
 
   //console.log(result.length)
   //console.log(result[0])
