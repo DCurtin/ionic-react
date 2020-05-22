@@ -153,7 +153,9 @@ app.post('/logoutServer', function(req, res){
     }
   });*/
 
-  removeSession(userSessionId);
+  removeSession(userSessionId).then(function(response){
+    res.send('ok');
+  })
 })
 
 app.post('/loginServer', function(req, res){
@@ -244,10 +246,11 @@ function removeSession(token){
     text : 'DELETE FROM salesforce.user_session WHERE hashed_session_id = $1',
       values: [token]
     }
-    client.query(deleteToken, function(err, response){
+    return client.query(deleteToken, function(err, response){
       console.log('after delete');
       console.log(err);
       console.log(response);
+      return response;
     })
 }
 
