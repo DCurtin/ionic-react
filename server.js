@@ -190,7 +190,7 @@ app.post('/loginServer', function(req, res){
         text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
         values : [userInfo.id]
     }
-    client.query(userQuery, (err, result ) => {
+    client.query(userQuery).then( result => {
       console.log('user query');
       console.log(result );
       console.log('user query err');
@@ -215,7 +215,7 @@ app.post('/loginServer', function(req, res){
         console.log(err);
         res.status('500').send('failed to create session');
       });
-    });
+    }).catch(e => console.log('test'));
     // ...
   });
 })
