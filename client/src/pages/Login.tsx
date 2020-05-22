@@ -35,7 +35,7 @@ const Login: React.FC = () => {
 function redirectHome(setGoToHome : Function)
 {
   setGoToHome(false);
-  return (<Redirect to='/home'/>);
+  return <Redirect to='/home'/>;
 }
 
 function login(username: String, password: String, setGoToHome : Function){
