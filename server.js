@@ -186,11 +186,14 @@ app.post('/loginServer', function(req, res){
         console.log('logging out user')
       }, minutes);
     }
-    /*console.log(userInfo);
+    console.log(userInfo);
     console.log('-----------------')
-    console.log(conn);*/
+    console.log(conn);
     
     client.query(query, function(error, data) {
+      console.log('user query');
+      console.log(error);
+      console.log(data);
       var row = data['rows'][0];
       var query = {
 
