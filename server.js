@@ -31,6 +31,10 @@ app.use(express.static(path.join(__dirname,"client", "build")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.get('/*',(req, res) => {
+  res.sendFile(path.join(__dirname + '/client/public/index.html'))
+})
+
 /*app.get("*", function(req, res) {
   console.log('MDY114 PATH ' + path.join("client", "public", "index.html"));
   //res.sendFile(path.join(__dirname, "client", "public", "index.html"));
