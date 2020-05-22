@@ -16,7 +16,6 @@ app.use(function(req, res, next) {
 });
 
 var connectionString = process.env.DATABASE_URL || 'postgresql://postgres@localhost/salesforce';
-console.log(connectionString);
 
 var client = new pg.Client(connectionString);
 
@@ -34,8 +33,6 @@ var conn = new jsforce.Connection({
     redirectUri : process.env.SF_Redirect
   }
 });
-
-console.log(conn);
 
 
 client.connect();
@@ -80,9 +77,7 @@ app.use('/googleplex', function(req, res){
 })
 
 app.post('/account', function(req, res) {
-  console.log('body :' + req.body);
   var userSessionId = req.body.userSession;
-  console.log(userSessionId);
   
   checkIfAuthorized(userSessionId).then(function(userData){
     if(userData === undefined || userData.rows.length === 0){
@@ -90,11 +85,9 @@ app.post('/account', function(req, res) {
       return;
     }
     let user = userData['rows'][0]
-    console.log(user);
     //need to add conn and or time check to table
-    console.log('test');
+    
     client.query('SELECT * FROM ' + accountTable).then(function(data) {
-        console.log(data);
         //res.send(data.rows);
         res.json(data['rows']);
       }).catch(function(error){
@@ -114,7 +107,6 @@ app.post('/account', function(req, res) {
 });
 
 function checkIfAuthorized(userSessionId){
-  console.log('runing query ' + userSessionId);
   var userQuery = {
     text : 'SELECT * FROM salesforce.user_session WHERE hashed_session_id = $1',
     values : [userSessionId]
@@ -127,21 +119,20 @@ app.post('/createTransaction', function(req, res){
   var userSessionId = responseBody.userSession;
   
   checkIfAuthorized(userSessionId).then(function(userData){
-    console.log(userData);
     if(userData === undefined || userData.rows.length === 0){
       res.status(500).send('session token invalid');
       return;
     }
-    console.log('Account id ' + responseBody.sfid);
+
     const query = {
       text: 'INSERT INTO salesforce.transaction__c(paybable_to_from__c, recordtypeid, account__c, assigned_to__c) VALUES($1, $2, $3, $4)',
       values: ['test 123', '01230000000Ne2TAAS', responseBody.sfid, '0050M00000Dv1h5QAB'],
     }
     client.query(query, (err, response) => {
       if (err) {
-        console.log(err.stack)
+        console.log(err)
+        res.status(500).json(err)
       } else {
-        console.log(response.rows[0])
         res.json('ok');
       }
     });
@@ -153,20 +144,14 @@ app.post('/createTransaction', function(req, res){
 app.post('/loginServer', function(req, res){
   var data = req.body;
   const hash = require('crypto').createHash('md5');
-  console.log(data.userName + ' ' + data.passWord);
+
   conn.login(data.userName, data.passWord, function(err, userInfo) {
     if (err) {
       res.status(500).send(err);
       console.log(err);
       return console.log('fail');
     }
-    // Now you can get the access token and instance URL information.
-    // Save them to establish connection next time.
-    console.log(conn.accessToken);
-    console.log(conn.instanceUrl);
-    // logged in user property
-    console.log("User ID: " + userInfo.id);
-    console.log("Org ID: " + userInfo.organizationId);
+
     let token = hash.update(conn.accessToken).digest('hex');
     let query = {
       text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
@@ -174,14 +159,13 @@ app.post('/loginServer', function(req, res){
     }
     client.query(query, function(error, data) {
       var row = data['rows'][0];
-      console.log(row['sfid']);
       var query = {
+
         //upsert record
         text : 'INSERT INTO salesforce.user_session(access_token, hashed_session_id, name, userid, contactid, accountid)  VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT (userid) DO UPDATE SET access_token = EXCLUDED.access_token, hashed_session_id = EXCLUDED.hashed_session_id',
         values: [conn.accessToken, token, row['name'], row['sfid'], row['contactid'], row['accountid']]
       }
       client.query(query).then(function(result){
-        console.log(result);
         res.json({'user': userIdentity, 'token': token})
       }).catch(function(err){
         console.log(err);
@@ -190,7 +174,6 @@ app.post('/loginServer', function(req, res){
         'userId' : userInfo.id,
         'name' : row['name']
       }
-
     })
     // ...
   });
