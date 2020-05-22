@@ -1,10 +1,9 @@
 import { Plugins } from '@capacitor/core';
 const {Storage} = Plugins;
 function callOutFetch(url : string, options : any){
-    var body = JSON.parse(options.body);
-
-    if(body === undefined){
-        body = {};
+    var body : any = {};
+    if(options.body !== undefined){
+        body = JSON.parse(options.body);
     }
 
     Storage.get({key: 'token'}).then(function(result){
