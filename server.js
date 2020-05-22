@@ -190,10 +190,10 @@ app.post('/loginServer', function(req, res){
     console.log('-----------------')
     //console.log(conn);
     
-    client.query(userQuery).then(function(data) {
+    client.query(userQuery).then(function(userData) {
       console.log('user query');
-      console.log(data);
-      var row = data['rows'][0];
+      console.log(userData);
+      var row = userData['rows'][0];
       var sessionQuery = {
 
         //upsert record
@@ -207,8 +207,8 @@ app.post('/loginServer', function(req, res){
         }
         res.json({'user': userIdentity, 'token': token})
       }).catch(function(err){
-        res.status('500').send('failed to create session');
         console.log(err);
+        res.status('500').send('failed to create session');
       });
     }).catch(function(error){
       console.log('error');
