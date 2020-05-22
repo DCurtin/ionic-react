@@ -32,7 +32,7 @@ const Login: React.FC = () => {
               <IonItem><IonTitle size="large">UserName</IonTitle></IonItem>
               <IonItem><IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem>
               <IonItem><IonTitle size="large">Password</IonTitle></IonItem>
-              <IonItem><IonInput type="password" value={password} placeholder="Enter Input" onKeyUpCapture={function(e){console.log(e); console.log(e.type);}} onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput></IonItem>
+              <IonItem><IonInput type="password" value={password} placeholder="Enter Input" onKeyUp={e => e.key === 'Enter' ? login(username, password, history) : null} onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput></IonItem>
               <IonItem><IonButton onClick={() => {login(username, password, history)}}> Sign In </IonButton></IonItem>
             </IonList>
       </IonContent>
