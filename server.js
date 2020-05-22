@@ -195,7 +195,6 @@ app.post('/loginServer', function(req, res){
       console.log(userData);
       var row = userData['rows'][0];
       var sessionQuery = {
-
         //upsert record
         text : 'INSERT INTO salesforce.user_session(access_token, hashed_session_id, name, userid, contactid, accountid)  VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT (userid) DO UPDATE SET access_token = EXCLUDED.access_token, hashed_session_id = EXCLUDED.hashed_session_id',
         values: [conn.accessToken, token, row['name'], row['sfid'], row['contactid'], row['accountid']]
