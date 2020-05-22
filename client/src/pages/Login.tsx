@@ -11,6 +11,7 @@ import './Login.css';
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  var inputFieldSetters = [setUsername, setPassword];
 
   const history = useHistory();
 
@@ -62,9 +63,8 @@ function login(username: String, password: String, history : any, setUsername: F
     response.json().then(function(data : any){
       console.log('login json');
       console.log(data);
-      //Storage.set({key: 'token', value :data['token'] });
-      //Storage.set({key: 'name', value :data['user'].name });
       sessionHandler.saveSession(data['token'], data['user'].name, 'test');
+
       setUsername('');
       setPassword('');
       history.push('/home');
