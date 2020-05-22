@@ -58,7 +58,7 @@ const Home: React.FC = () => {
           <IonButton onClick={() => logout(history)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
-        useAffectToGetAccounts()
+        {useAffectToGetAccounts()}
       </IonContent>
   )
 };
