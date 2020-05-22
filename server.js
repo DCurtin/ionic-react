@@ -166,7 +166,7 @@ app.post('/loginServer', function(req, res){
 
   conn.login(data.userName, data.passWord, function(err, userInfo) {
     var token = hash.update(conn.accessToken).digest('hex');
-    var query = {
+    var userQuery = {
         text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
         values : [userInfo.id]
     }
@@ -190,17 +190,17 @@ app.post('/loginServer', function(req, res){
     console.log('-----------------')
     //console.log(conn);
     
-    client.query(query).then(function(data) {
+    client.query(userQuery).then(function(data) {
       console.log('user query');
       console.log(data);
       var row = data['rows'][0];
-      var query = {
+      var sessionQuery = {
 
         //upsert record
         text : 'INSERT INTO salesforce.user_session(access_token, hashed_session_id, name, userid, contactid, accountid)  VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT (userid) DO UPDATE SET access_token = EXCLUDED.access_token, hashed_session_id = EXCLUDED.hashed_session_id',
         values: [conn.accessToken, token, row['name'], row['sfid'], row['contactid'], row['accountid']]
       }
-      client.query(query).then(function(result){
+      client.query(sessionQuery).then(function(result){
         res.json({'user': userIdentity, 'token': token})
       }).catch(function(err){
         console.log(err);
