@@ -130,6 +130,7 @@ app.post('/createTransaction', function(req, res){
     console.log(userData);
     if(userData === undefined || userData.rows.length === 0){
       res.status(500).send('session token invalid');
+      return;
     }
     console.log('Account id ' + responseBody.sfid);
     const query = {
