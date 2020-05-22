@@ -109,8 +109,8 @@ function getAccounts(){
     }}
 
   return sessionHandler.callOutFetch(url, options).then( function(response){
-    if(!response.ok){
-      throw Error(response.statusText);
+    if(!response?.ok){
+      throw Error(response?.statusText);
     }
     console.log('in fetch');
     return response.json().then(function(data)
