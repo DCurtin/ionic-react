@@ -124,11 +124,11 @@ app.post('/createTransaction', function(req, res){
   var responseBody = req.body;
   var userSessionId = responseBody.userSession;
   
-  checkIfAuthorized(userSessionId).then(function(data){
-    if(data === null){
+  checkIfAuthorized(userSessionId).then(function(userData){
+    console.log(userData);
+    if(userData === undefined){
       res.status(500).send('session token invalid');
     }
-    //console.log(req);
     console.log('Account id ' + responseBody.sfid);
     const query = {
       text: 'INSERT INTO salesforce.transaction__c(paybable_to_from__c, recordtypeid, account__c, assigned_to__c) VALUES($1, $2, $3, $4)',
