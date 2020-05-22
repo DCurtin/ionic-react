@@ -2,14 +2,14 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem,
 import { Plugins } from '@capacitor/core';
 import React, {useState} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
-import { Redirect } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './Home.css';
 
 const { Storage } = Plugins;
 
 const Home: React.FC = () => {
-  const location = useLocation();
+  const history = useHistory();
   const [result, setResult] = useState([{any : String}]);
   const [userName, setUserName] = useState('');
 
@@ -72,7 +72,7 @@ const Home: React.FC = () => {
         <IonHeader>
         <IonToolbar>
           <IonTitle>MDY114 THIS IS MY HOME PAGE {userName} </IonTitle>
-          <IonButton onClick={() => logout(location)}>Logout</IonButton>
+          <IonButton onClick={() => logout(history)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
         <IonList>
@@ -86,7 +86,7 @@ const Home: React.FC = () => {
   )
 };
 
-function logout(location : any){
+function logout(history : any){
   getToken().then(function(result){
     var userSession = result.value;
     var url = '/logout'
@@ -101,7 +101,7 @@ function logout(location : any){
     }
 
     fetch(url, options).then(()=>{
-      location.state ='/login';
+      history.replace('/login');
     })
   })
 }
