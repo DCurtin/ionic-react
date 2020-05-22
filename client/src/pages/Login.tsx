@@ -9,12 +9,13 @@ import { Redirect } from 'react-router-dom';
 import './Login.css';
 
 const { Storage } = Plugins;
-const history = useHistory();
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [goToHome, setGoToHome] = useState(false);
+  const history = useHistory();
+
   console.log('rerunning')
   console.log(goToHome)
   return (!goToHome) ? (
@@ -30,20 +31,20 @@ const Login: React.FC = () => {
               <IonItem><IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem>
               <IonItem><IonTitle size="large">Password</IonTitle></IonItem>
               <IonItem><IonInput type="password" value={password} placeholder="Enter Input" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput></IonItem>
-              <IonItem><IonButton onClick={() => {login(username, password, setGoToHome)}}> Sign In </IonButton></IonItem>
+              <IonItem><IonButton onClick={() => {login(username, password, history)}}> Sign In </IonButton></IonItem>
             </IonList>
       </IonContent>
     </IonPage>
   ):<Redirect to='/home'/>
 };
 
-function login(username: String, password: String, setGoToHome : Function){
+function login(username: String, password: String, history : any){
   var un = username;
   var pw = password;
   console.log(un + '  ' + pw);
 
   if(un === '' || pw === ''){
-    setGoToHome(false);
+    //setGoToHome(false);
     return;
   }
   
@@ -72,7 +73,7 @@ function login(username: String, password: String, setGoToHome : Function){
     })
   }).catch(function(error){
       console.log(error);
-      setGoToHome(false);
+      //setGoToHome(false);
   })
 }
 
