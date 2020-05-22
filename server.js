@@ -200,8 +200,10 @@ app.post('/loginServer', function(req, res){
         text : 'INSERT INTO salesforce.user_session(access_token, hashed_session_id, name, userid, contactid, accountid)  VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT (userid) DO UPDATE SET access_token = EXCLUDED.access_token, hashed_session_id = EXCLUDED.hashed_session_id',
         values: [conn.accessToken, token, row['name'], row['sfid'], row['contactid'], row['accountid']]
       }
-      client.query(sessionQuery).then(function(){
+      client.query(sessionQuery, function(err, response){
         console.log('after insert');
+        console.log(err);
+        console.log(response);
         var userIdentity = {
           'userId' : userInfo.id,
           'name' : row['name']
