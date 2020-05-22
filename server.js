@@ -241,7 +241,7 @@ function removeSession(token){
       values: [token]
     }
     client.query(deleteToken, function(err, response){
-      console.log('after insert');
+      console.log('after delete');
       console.log(err);
       console.log(response);
     })

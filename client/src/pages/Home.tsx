@@ -87,7 +87,7 @@ const Home: React.FC = () => {
 };
 
 function logout(history : any){
-  var url = '/logout'
+  var url = '/logoutServer'
   var options = {
     method : 'POST',
     headers: {
