@@ -85,7 +85,7 @@ app.post('/account', function(req, res) {
   console.log(userSessionId);
   
   checkIfAuthorized(userSessionId).then(function(userData){
-    if(userData === undefined){
+    if(userData === undefined || userData.rows.length === 0){
       res.status(500).send('session token invalid');
       return;
     }
@@ -128,7 +128,7 @@ app.post('/createTransaction', function(req, res){
   
   checkIfAuthorized(userSessionId).then(function(userData){
     console.log(userData);
-    if(userData === undefined){
+    if(userData === undefined || userData.rows.length === 0){
       res.status(500).send('session token invalid');
     }
     console.log('Account id ' + responseBody.sfid);
