@@ -2,14 +2,15 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem,
 import { Plugins } from '@capacitor/core';
 import React, {useState} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
+import { Redirect } from 'react-router-dom';
 import './Home.css';
 
 const { Storage } = Plugins;
 
 const Home: React.FC = () => {
-  var collection = [{any : String}];
   const [result, setResult] = useState([{any : String}]);
   const [userName, setUserName] = useState('');
+  const [activeSession, setActiveSession] = useState(true);
 
   //console.log(result.length)
   //console.log(result[0])
@@ -65,11 +66,13 @@ const Home: React.FC = () => {
         <ExploreContainer />
       </IonContent>
     </IonPage>
-  ) : (
+  ) : (!activeSession) ? (<Redirect to='/login'/>) : 
+  (
       <IonContent>
         <IonHeader>
         <IonToolbar>
           <IonTitle>MDY114 THIS IS MY HOME PAGE {userName} </IonTitle>
+          <IonButton onClick={() => logout(setActiveSession)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
         <IonList>
@@ -80,9 +83,28 @@ const Home: React.FC = () => {
           }))}
         </IonList>
       </IonContent>
-  );
+  )
 };
 
+function logout(setActiveSession : Function){
+  getToken().then(function(result){
+    var userSession = result.value;
+    var url = '/logout'
+    var options = {
+      method : 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'userSession' : userSession
+      })
+    }
+
+    fetch(url, options).then(()=>{
+      setActiveSession(false);
+    })
+  })
+}
 
 function getAccounts(){
 

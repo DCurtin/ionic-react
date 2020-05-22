@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var pg = require('pg');
 var jsforce = require('jsforce');
 var app = express();
+var cachedConnections = {};
+const loginUrl = 'https://test.salesforce.com';
 
 
 app.use(function(req, res, next) {
@@ -22,20 +24,7 @@ var client = new pg.Client(connectionString);
 var accountTable = 'salesforce.account';
 
 
-var conn = new jsforce.Connection({
-  oauth2 : {
-    // you can change loginUrl to connect to sandbox or prerelease env.
-    // loginUrl : 'https://test.salesforce.com',
-    loginUrl : 'https://test.salesforce.com',
-    //loginUrl : 'https://dcurtin-iraonline.cs17.force.com/client',
-    clientId : process.env.SFClient_Id,
-    clientSecret : process.env.SFClient_Sec,
-    redirectUri : process.env.SF_Redirect
-  }
-});
-
-
-client.connect();
+//client.connect();
 
 app.use(express.static(path.join(__dirname,"client", "build")));
 
@@ -141,25 +130,64 @@ app.post('/createTransaction', function(req, res){
   })
 });
 
+app.post('/logoutServer', function(req, res){
+  var userSessionId = req.body.userSession;
+  var connection = cachedConnections[userSessionId];
+
+  if(connection === undefined || connection === null)
+  {
+    console.log('connection does not exist');
+    res.json('connection did not exist');
+    return;
+  }
+
+  connection.logout(function(err){
+    if(err){
+      console.log(err);
+      res.status(500).json(err);
+    }
+  });
+})
+
 app.post('/loginServer', function(req, res){
   var data = req.body;
   const hash = require('crypto').createHash('md5');
+  var conn = new jsforce.Connection({
+    oauth2 : {
+      // you can change loginUrl to connect to sandbox or prerelease env.
+      // loginUrl : 'https://test.salesforce.com',
+      loginUrl : loginUrl,
+      //loginUrl : 'https://dcurtin-iraonline.cs17.force.com/client',
+      clientId : process.env.SFClient_Id,
+      clientSecret : process.env.SFClient_Sec,
+      redirectUri : process.env.SF_Redirect
+    }
+  });
 
   conn.login(data.userName, data.passWord, function(err, userInfo) {
-    console.log(userInfo);
+    var token = hash.update(conn.accessToken).digest('hex');
+    var query = {
+        text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
+        values : [userInfo.id]
+    }
+
+    if(cachedConnections[token] === undefined)
+    {
+      var seconds = 5000;
+      cachedConnections[token] = conn;
+      setTimeout(function(conn){
+        console.log('logging out user')
+      }, seconds);
+    }
+    /*console.log(userInfo);
     console.log('-----------------')
-    console.log(conn);
+    console.log(conn);*/
     if (err) {
       res.status(500).send(err);
       console.log(err);
       return console.log('fail');
     }
-
-    let token = hash.update(conn.accessToken).digest('hex');
-    let query = {
-      text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
-      values : [userInfo.id]
-    }
+    
     client.query(query, function(error, data) {
       var row = data['rows'][0];
       var query = {
