@@ -18,7 +18,7 @@ app.use(function(req, res, next) {
 });
 
 var connectionString = process.env.DATABASE_URL || 'postgresql://postgres@localhost/salesforce';
-
+console.log('query url: ' +  connectionString)
 var client = new pg.Client(connectionString);
 
 var accountTable = 'salesforce.account';
@@ -193,6 +193,8 @@ app.post('/loginServer', function(req, res){
     client.query(userQuery).then( (err, userData) => {
       console.log('user query');
       console.log(userData);
+      console.log('user query err');
+      console.log(err);
       var row = userData['rows'][0];
       var sessionQuery = {
 
