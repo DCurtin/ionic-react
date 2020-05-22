@@ -1,10 +1,12 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton, IonInput } from '@ionic/react';
 import { Plugins } from '@capacitor/core';
+import { useHistory } from 'react-router-dom';
 import React, {useState} from 'react';
 import { Redirect } from 'react-router-dom';
 import './Login.css';
 
 const { Storage } = Plugins;
+const history = useHistory();
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -62,7 +64,8 @@ function login(username: String, password: String, setGoToHome : Function){
       console.log(data);
       Storage.set({key: 'token', value :data['token'] });
       Storage.set({key: 'name', value :data['user'].name });
-      setGoToHome(true);
+      //setGoToHome(true);
+      history.push('/home');
     })
   }).catch(function(error){
       console.log(error);
