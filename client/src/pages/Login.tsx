@@ -27,18 +27,19 @@ const Login: React.FC = () => {
               <IonItem><IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem>
               <IonItem><IonTitle size="large">Password</IonTitle></IonItem>
               <IonItem><IonInput type="password" value={password} placeholder="Enter Input" onKeyUp={e => e.key === 'Enter' ? login(username, password, history) : null} onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput></IonItem>
-              <IonItem><IonButton onClick={() => {login(username, password, history); setPassword(''); setUsername('')}}> Sign In </IonButton></IonItem>
+              <IonItem><IonButton onClick={() => {login(username, password, history, setUsername, setPassword)}}> Sign In </IonButton></IonItem>
             </IonList>
       </IonContent>
     </IonPage>
   )
 };
 
-function login(username: String, password: String, history : any){
+function login(username: String, password: String, history : any, setUsername: Function, setPassword: Function){
   var un = username;
   var pw = password;
-  console.log(un + '  ' + pw);
 
+  console.log(un + '  ' + pw);
+  
   if(un === '' || pw === ''){
     return;
   }
@@ -64,6 +65,8 @@ function login(username: String, password: String, history : any){
       //Storage.set({key: 'token', value :data['token'] });
       //Storage.set({key: 'name', value :data['user'].name });
       sessionHandler.saveSession(data['token'], data['user'].name, 'test');
+      setUsername('');
+      setPassword('');
       history.push('/home');
     })
   }).catch(function(error){
