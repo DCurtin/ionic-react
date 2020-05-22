@@ -6,6 +6,7 @@ var pg = require('pg');
 var jsforce = require('jsforce');
 var app = express();
 var cachedConnections = {};
+const USER_TIMEOUT_IN_MINUTES = 15;
 const loginUrl = 'https://test.salesforce.com';
 
 
@@ -18,18 +19,22 @@ app.use(function(req, res, next) {
 });
 
 var connectionString = process.env.DATABASE_URL || 'postgresql://postgres@localhost/salesforce';
-
+console.log('query url: ' +  connectionString)
 var client = new pg.Client(connectionString);
+client.connect();
 
 var accountTable = 'salesforce.account';
 
 
-//client.connect();
 
 app.use(express.static(path.join(__dirname,"client", "build")));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.get('/*',(req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'))
+})
 
 /*app.get("*", function(req, res) {
   console.log('MDY114 PATH ' + path.join("client", "public", "index.html"));
@@ -132,7 +137,7 @@ app.post('/createTransaction', function(req, res){
 
 app.post('/logoutServer', function(req, res){
   var userSessionId = req.body.userSession;
-  var connection = cachedConnections[userSessionId];
+  /*var connection = cachedConnections[userSessionId];
 
   if(connection === undefined || connection === null)
   {
@@ -143,10 +148,15 @@ app.post('/logoutServer', function(req, res){
 
   connection.logout(function(err){
     if(err){
+      console.log('error on logout');
       console.log(err);
       res.status(500).json(err);
     }
-  });
+  });*/
+
+  removeSession(userSessionId).then(function(response){
+    res.send('ok');
+  })
 })
 
 app.post('/loginServer', function(req, res){
@@ -176,24 +186,28 @@ app.post('/loginServer', function(req, res){
     /*if(cachedConnections[token] === undefined)
     {
       var second = 1000;
-      var minutes = 60 * second;
+      var minute = 60 * second;
+      var minutes = minute * 15;
       cachedConnections[token] = conn;
       setTimeout(function(conn){
         console.log('logging out user')
       }, minutes);
     }*/
+
     //console.log(userInfo);
     console.log('-----------------');
     console.log(userInfo.id);
     
-    var userQuery = {
+    let userQuery = {
         text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
         values : [userInfo.id]
     }
-    client.query(userQuery).then(function(userData) {
+    client.query(userQuery).then( function(result){
       console.log('user query');
-      console.log(userData);
-      var row = userData['rows'][0];
+      console.log(result );
+      console.log('user query err');
+      console.log(err);
+      var row = result['rows'][0];
       var sessionQuery = {
         //upsert record
         text : 'INSERT INTO salesforce.user_session(access_token, hashed_session_id, name, userid, contactid, accountid)  VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT (userid) DO UPDATE SET access_token = EXCLUDED.access_token, hashed_session_id = EXCLUDED.hashed_session_id',
@@ -203,23 +217,43 @@ app.post('/loginServer', function(req, res){
         console.log('after insert');
         console.log(err);
         console.log(response);
+
+        scheduleSessionTimeout(USER_TIMEOUT_IN_MINUTES, token)
+
         var userIdentity = {
           'userId' : userInfo.id,
-          'name' : row['name']
+          'name' : row['name'],
+          'sessionTimeout': USER_TIMEOUT_IN_MINUTES
         }
         res.json({'user': userIdentity, 'token': token})
       }).catch(function(err){
         console.log(err);
         res.status('500').send('failed to create session');
       });
-    }).catch(function(error){
-      console.log('error');
-      console.log(error);
-      res.status(500).send('error finding user');
-    })
+    }).catch(e => console.log('test'));
     // ...
   });
 })
+
+function scheduleSessionTimeout(minutes, token){
+  var second = 1000;
+  var minute = 60 * second;
+  var timeoutInMinutes = minute * minutes;
+  setTimeout(removeSession, timeoutInMinutes, token);
+}
+
+function removeSession(token){
+  var deleteToken = {
+    text : 'DELETE FROM salesforce.user_session WHERE hashed_session_id = $1',
+      values: [token]
+    }
+    return client.query(deleteToken, function(err, response){
+      console.log('after delete');
+      console.log(err);
+      console.log(response);
+      return response;
+    })
+}
 
 /*app.get('/account/:id', function(req, res) {
   client.query('SELECT ' + accountTable + '.* FROM ' + accountTable + 'WHERE ' + accountTable + '.sfid = $1', [req.params.id], function(error, data) {
