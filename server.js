@@ -201,15 +201,17 @@ app.post('/loginServer', function(req, res){
         values: [conn.accessToken, token, row['name'], row['sfid'], row['contactid'], row['accountid']]
       }
       client.query(sessionQuery).then(function(result){
+        let userIdentity = {
+          'userId' : userInfo.id,
+          'name' : row['name']
+        }
         res.json({'user': userIdentity, 'token': token})
       }).catch(function(err){
         console.log(err);
       });
-      let userIdentity = {
-        'userId' : userInfo.id,
-        'name' : row['name']
-      }
     }).catch(function(error){
+      console.log('error');
+      console.log(error);
       res.status(500).send('error finding user');
     })
     // ...
