@@ -183,17 +183,6 @@ app.post('/loginServer', function(req, res){
     }
     var token = hash.update(conn.accessToken).digest('hex');
     
-    /*if(cachedConnections[token] === undefined)
-    {
-      var second = 1000;
-      var minute = 60 * second;
-      var minutes = minute * 15;
-      cachedConnections[token] = conn;
-      setTimeout(function(conn){
-        console.log('logging out user')
-      }, minutes);
-    }*/
-
     //console.log(userInfo);
     console.log('-----------------');
     console.log(userInfo.id);
@@ -217,13 +206,14 @@ app.post('/loginServer', function(req, res){
         console.log('after insert');
         console.log(err);
         console.log(response);
-
-        scheduleSessionTimeout(USER_TIMEOUT_IN_MINUTES, token)
+        
+        let timeout = 1;
+        scheduleSessionTimeout(timeout, token)
 
         var userIdentity = {
           'userId' : userInfo.id,
           'name' : row['name'],
-          'sessionTimeout': USER_TIMEOUT_IN_MINUTES
+          'sessionTimeout': timeout
         }
         res.json({'user': userIdentity, 'token': token})
       }).catch(function(err){
