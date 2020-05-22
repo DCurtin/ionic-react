@@ -173,7 +173,7 @@ app.post('/loginServer', function(req, res){
     }
     var token = hash.update(conn.accessToken).digest('hex');
     
-    if(cachedConnections[token] === undefined)
+    /*if(cachedConnections[token] === undefined)
     {
       var second = 1000;
       var minutes = 60 * second;
@@ -181,7 +181,7 @@ app.post('/loginServer', function(req, res){
       setTimeout(function(conn){
         console.log('logging out user')
       }, minutes);
-    }
+    }*/
     //console.log(userInfo);
     console.log('-----------------');
     console.log(userInfo.id);
