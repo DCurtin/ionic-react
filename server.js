@@ -190,7 +190,7 @@ app.post('/loginServer', function(req, res){
         text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
         values : [userInfo.id]
     }
-    client.query(userQuery).then( (err, userData) => {
+    client.query(userQuery, (err, userData) => {
       console.log('user query');
       console.log(userData);
       console.log('user query err');
