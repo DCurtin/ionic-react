@@ -10,7 +10,7 @@ const { Storage } = Plugins;
 const Home: React.FC = () => {
   const [result, setResult] = useState([{any : String}]);
   const [userName, setUserName] = useState('');
-  const [activeSession, setActiveSession] = useState(true);
+  const [activeSession, setActiveSession] = useState(false);
 
   //console.log(result.length)
   //console.log(result[0])
@@ -66,7 +66,7 @@ const Home: React.FC = () => {
         <ExploreContainer />
       </IonContent>
     </IonPage>
-  ) : (!activeSession) ? (<Redirect to='/login'/>) : 
+  ) : (!activeSession) ? 
   (
       <IonContent>
         <IonHeader>
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
           }))}
         </IonList>
       </IonContent>
-  )
+  ) : (<Redirect to='/login'/>);
 };
 
 function logout(setActiveSession : Function){
@@ -101,7 +101,7 @@ function logout(setActiveSession : Function){
     }
 
     fetch(url, options).then(()=>{
-      setActiveSession(false);
+      setActiveSession(true);
     })
   })
 }
