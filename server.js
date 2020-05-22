@@ -201,7 +201,7 @@ app.post('/loginServer', function(req, res){
         values: [conn.accessToken, token, row['name'], row['sfid'], row['contactid'], row['accountid']]
       }
       client.query(sessionQuery).then(function(result){
-        let userIdentity = {
+        var userIdentity = {
           'userId' : userInfo.id,
           'name' : row['name']
         }
