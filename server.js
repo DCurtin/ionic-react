@@ -207,6 +207,7 @@ app.post('/loginServer', function(req, res){
         }
         res.json({'user': userIdentity, 'token': token})
       }).catch(function(err){
+        res.status('500').send('failed to create session');
         console.log(err);
       });
     }).catch(function(error){
