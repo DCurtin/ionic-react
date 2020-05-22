@@ -6,6 +6,7 @@ var pg = require('pg');
 var jsforce = require('jsforce');
 var app = express();
 var cachedConnections = {};
+const USER_TIMEOUT_IN_MINUTES = 15;
 const loginUrl = 'https://test.salesforce.com';
 
 
@@ -218,11 +219,12 @@ app.post('/loginServer', function(req, res){
         console.log(err);
         console.log(response);
 
-        scheduleSessionTimeout(15, token)
+        scheduleSessionTimeout(USER_TIMEOUT_IN_MINUTES, token)
 
         var userIdentity = {
           'userId' : userInfo.id,
-          'name' : row['name']
+          'name' : row['name'],
+          'sessionTimeout': USER_TIMEOUT_IN_MINUTES
         }
         res.json({'user': userIdentity, 'token': token})
       }).catch(function(err){
