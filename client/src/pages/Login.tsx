@@ -1,6 +1,9 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton, IonInput } from '@ionic/react';
 import { Plugins } from '@capacitor/core';
+
 import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
 import React, {useState} from 'react';
 import { Redirect } from 'react-router-dom';
 import './Login.css';
