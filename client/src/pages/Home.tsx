@@ -10,33 +10,32 @@ const { Storage } = Plugins;
 
 const Home: React.FC = () => {
   const history = useHistory();
-  const [result, setResult] = useState([{any : String}]);
   const [userName, setUserName] = useState('');
 
   //console.log(result.length)
   //console.log(result[0])
   //if(result !== undefined && result.length <= 1 ){
-    useEffect(()=>{
-    getAccounts().then(function(data : any){
-    //console.log('in get accounts response');
-    //console.log(data);
-    //console.log(data[0].sfid);
-    //return data[0].sfid;
-    /*data?.read().then(function({done, value}){
-      if(done){
-        console.log('done')
-        return 'done'
-      }
-      var decoder = new TextDecoder();
-      
-      console.log(value);
-      console.log(decoder.decode(value))
-      
-    })*/
-    setResult(data);
-    
-    });
-  });
+   // useEffect(()=>{
+   //   var data = getAccounts().then(function(data : any){
+      //console.log('in get accounts response');
+      //console.log(data);
+      //console.log(data[0].sfid);
+      //return data[0].sfid;
+      /*data?.read().then(function({done, value}){
+        if(done){
+          console.log('done')
+          return 'done'
+        }
+        var decoder = new TextDecoder();
+
+        console.log(value);
+        console.log(decoder.decode(value))
+
+      })*/
+
+ //   });
+ //   setResult(data);
+ // });
   //}
 
   if(userName === '')
@@ -51,24 +50,7 @@ const Home: React.FC = () => {
     })
   }
 
-  return (result === undefined || result.length === 1) ? (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-  <IonTitle>MDY114 THIS IS MY HOME PAGE {userName} </IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Ion Title Contect</IonTitle>
-
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer />
-      </IonContent>
-    </IonPage>
-  ) : (
+  return (
       <IonContent>
         <IonHeader>
         <IonToolbar>
@@ -76,13 +58,7 @@ const Home: React.FC = () => {
           <IonButton onClick={() => logout(history)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
-        <IonList>
-          <IonItem>SFID And Name</IonItem>
-          {(result.map(function(row: any, i : any){
-            //console.log(row);
-            return <IonItem>{row['sfid']}  {row['name']} <IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonItem>
-          }))}
-        </IonList>
+        useAffectToGetAccounts()
       </IonContent>
   )
 };
@@ -99,6 +75,22 @@ function logout(history : any){
     sessionHandler.callOutFetch(url, options).then(()=>{
     history.replace('/login');
   })
+}
+
+function useAffectToGetAccounts(){
+  const [result, setResult] = useState([{any : String}]);
+  useEffect(()=>{
+    getAccounts().then(function(data : any){
+    setResult(data);
+    });
+  });
+return <IonList>
+          <IonItem>SFID And Name</IonItem>
+          {(result.map(function(row: any, i : any){
+            //console.log(row);
+            return <IonItem>{row['sfid']}  {row['name']} <IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonItem>
+          }))}
+        </IonList>
 }
 
 function getAccounts(){
