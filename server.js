@@ -186,11 +186,11 @@ app.post('/loginServer', function(req, res){
     console.log('-----------------');
     console.log(userInfo.id);
     
-    var userQuery = {
+    let userQuery = {
         text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
         values : [userInfo.id]
     }
-    client.query(userQuery).then(function(userData) {
+    client.query(userQuery).then( (err, userData) => {
       console.log('user query');
       console.log(userData);
       var row = userData['rows'][0];
@@ -213,11 +213,7 @@ app.post('/loginServer', function(req, res){
         console.log(err);
         res.status('500').send('failed to create session');
       });
-    }).catch(function(error){
-      console.log('error');
-      console.log(error);
-      res.status(500).send('error finding user');
-    })
+    });
     // ...
   });
 })
