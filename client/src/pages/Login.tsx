@@ -70,7 +70,7 @@ function login(username: String, password: String, history : any){
       //Storage.set({key: 'token', value :data['token'] });
       //Storage.set({key: 'name', value :data['user'].name });
       sessionHandler.saveSession(data['token'], data['user'].name, 'test');
-      history.push('/home');
+      history.push('#/home');
     })
   }).catch(function(error){
       console.log(error);
