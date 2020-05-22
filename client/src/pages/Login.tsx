@@ -18,7 +18,7 @@ const Login: React.FC = () => {
 
   console.log('rerunning')
   console.log(goToHome)
-  return (!goToHome) ? (
+  return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
@@ -35,7 +35,7 @@ const Login: React.FC = () => {
             </IonList>
       </IonContent>
     </IonPage>
-  ):<Redirect to='/home'/>
+  )
 };
 
 function login(username: String, password: String, history : any){
@@ -44,7 +44,6 @@ function login(username: String, password: String, history : any){
   console.log(un + '  ' + pw);
 
   if(un === '' || pw === ''){
-    //setGoToHome(false);
     return;
   }
   
@@ -68,12 +67,10 @@ function login(username: String, password: String, history : any){
       console.log(data);
       Storage.set({key: 'token', value :data['token'] });
       Storage.set({key: 'name', value :data['user'].name });
-      //setGoToHome(true);
       history.push('/home');
     })
   }).catch(function(error){
       console.log(error);
-      //setGoToHome(false);
   })
 }
 

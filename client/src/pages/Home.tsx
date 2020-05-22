@@ -3,11 +3,13 @@ import { Plugins } from '@capacitor/core';
 import React, {useState} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import { Redirect } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './Home.css';
 
 const { Storage } = Plugins;
 
 const Home: React.FC = () => {
+  const location = useLocation();
   const [result, setResult] = useState([{any : String}]);
   const [userName, setUserName] = useState('');
   const [inActiveSession, setInActiveSession] = useState(false);
@@ -66,13 +68,12 @@ const Home: React.FC = () => {
         <ExploreContainer />
       </IonContent>
     </IonPage>
-  ) : (!inActiveSession) ? 
-  (
+  ) : (
       <IonContent>
         <IonHeader>
         <IonToolbar>
           <IonTitle>MDY114 THIS IS MY HOME PAGE {userName} </IonTitle>
-          <IonButton onClick={() => logout(setInActiveSession)}>Logout</IonButton>
+          <IonButton onClick={() => logout(location)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
         <IonList>
@@ -83,10 +84,10 @@ const Home: React.FC = () => {
           }))}
         </IonList>
       </IonContent>
-  ) : <Redirect to='/'/>
+  )
 };
 
-function logout(setInActiveSession : Function){
+function logout(location : any){
   getToken().then(function(result){
     var userSession = result.value;
     var url = '/logout'
@@ -101,7 +102,7 @@ function logout(setInActiveSession : Function){
     }
 
     fetch(url, options).then(()=>{
-      setInActiveSession(true);
+      location.state('/login');
     })
   })
 }
