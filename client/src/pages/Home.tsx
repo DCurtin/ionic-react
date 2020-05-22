@@ -12,31 +12,6 @@ const Home: React.FC = () => {
   const history = useHistory();
   const [userName, setUserName] = useState('');
 
-  //console.log(result.length)
-  //console.log(result[0])
-  //if(result !== undefined && result.length <= 1 ){
-   // useEffect(()=>{
-   //   var data = getAccounts().then(function(data : any){
-      //console.log('in get accounts response');
-      //console.log(data);
-      //console.log(data[0].sfid);
-      //return data[0].sfid;
-      /*data?.read().then(function({done, value}){
-        if(done){
-          console.log('done')
-          return 'done'
-        }
-        var decoder = new TextDecoder();
-
-        console.log(value);
-        console.log(decoder.decode(value))
-
-      })*/
-
- //   });
- //   setResult(data);
- // });
-  //}
   useEffect(()=>{
     Storage.get({key: 'name'}).then(function(result)
     {
@@ -82,7 +57,7 @@ function useEffectToGetAccounts(){
     setResult(data);
     });
   }, []);
-return <IonList>
+  return <IonList>
           <IonItem>SFID And Name</IonItem>
           {(result.map(function(row: any, i : any){
             //console.log(row);
