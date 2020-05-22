@@ -59,13 +59,14 @@ function useEffectToGetAccounts(){
     setResult(data);
     });
   }, []);
-  return <IonList>
+  return result !== undefined ? (<IonList>
           <IonItem>SFID And Name</IonItem>
           {(result.map(function(row: any, i : any){
             //console.log(row);
             return <IonItem>{row['sfid']}  {row['name']} <IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonItem>
           }))}
-        </IonList>
+        </IonList>):
+        "You are not signed in."
 }
 
 function getAccounts(){
