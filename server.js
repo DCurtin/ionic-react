@@ -190,12 +190,12 @@ app.post('/loginServer', function(req, res){
         text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
         values : [userInfo.id]
     }
-    client.query(userQuery, (err, userData) => {
+    client.query(userQuery, (err, result ) => {
       console.log('user query');
-      console.log(userData);
+      console.log(result );
       console.log('user query err');
       console.log(err);
-      var row = userData['rows'][0];
+      var row = result['rows'][0];
       var sessionQuery = {
 
         //upsert record
