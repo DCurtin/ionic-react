@@ -1,6 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton } from '@ionic/react';
 import { Plugins } from '@capacitor/core';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import sessionHandler from '../helpers/sessionHandler';
 import { useHistory } from 'react-router-dom';
@@ -15,8 +15,8 @@ const Home: React.FC = () => {
 
   //console.log(result.length)
   //console.log(result[0])
-  if(result !== undefined && result.length <= 1 ){
-
+  //if(result !== undefined && result.length <= 1 ){
+    useEffect(()=>{
     getAccounts().then(function(data : any){
     //console.log('in get accounts response');
     //console.log(data);
@@ -36,7 +36,8 @@ const Home: React.FC = () => {
     setResult(data);
     
     });
-  }
+  });
+  //}
 
   if(userName === '')
   {
