@@ -132,7 +132,7 @@ app.post('/createTransaction', function(req, res){
 
 app.post('/logoutServer', function(req, res){
   var userSessionId = req.body.userSession;
-  var connection = cachedConnections[userSessionId];
+  /*var connection = cachedConnections[userSessionId];
 
   if(connection === undefined || connection === null)
   {
@@ -147,7 +147,9 @@ app.post('/logoutServer', function(req, res){
       console.log(err);
       res.status(500).json(err);
     }
-  });
+  });*/
+
+  removeSession(userSessionId);
 })
 
 app.post('/loginServer', function(req, res){
@@ -174,7 +176,7 @@ app.post('/loginServer', function(req, res){
     }
     var token = hash.update(conn.accessToken).digest('hex');
     
-    if(cachedConnections[token] === undefined)
+    /*if(cachedConnections[token] === undefined)
     {
       var second = 1000;
       var minute = 60 * second;
@@ -183,7 +185,8 @@ app.post('/loginServer', function(req, res){
       setTimeout(function(conn){
         console.log('logging out user')
       }, minutes);
-    }
+    }*/
+
     //console.log(userInfo);
     console.log('-----------------');
     console.log(userInfo.id);
@@ -208,6 +211,9 @@ app.post('/loginServer', function(req, res){
         console.log('after insert');
         console.log(err);
         console.log(response);
+
+        scheduleSessionTimeout(15, token)
+
         var userIdentity = {
           'userId' : userInfo.id,
           'name' : row['name']
@@ -221,6 +227,25 @@ app.post('/loginServer', function(req, res){
     // ...
   });
 })
+
+function scheduleSessionTimeout(minutes, token){
+  var second = 1000;
+  var minute = 60 * second;
+  var timeoutInMinutes = minute * minutes;
+  setTimeout(removeSession(token), timeoutInMinutes);
+}
+
+function removeSession(token){
+  var deleteToken = {
+    text : 'DELETE FROM salesforce.user_session WHERE hashed_session_id = $1',
+      values: [token]
+    }
+    client.query(deleteToken, function(err, response){
+      console.log('after insert');
+      console.log(err);
+      console.log(response);
+    })
+}
 
 /*app.get('/account/:id', function(req, res) {
   client.query('SELECT ' + accountTable + '.* FROM ' + accountTable + 'WHERE ' + accountTable + '.sfid = $1', [req.params.id], function(error, data) {
