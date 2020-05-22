@@ -83,7 +83,7 @@ function useAffectToGetAccounts(){
     getAccounts().then(function(data : any){
     setResult(data);
     });
-  });
+  }, []);
 return <IonList>
           <IonItem>SFID And Name</IonItem>
           {(result.map(function(row: any, i : any){
