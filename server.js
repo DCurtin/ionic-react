@@ -170,7 +170,13 @@ app.post('/loginServer', function(req, res){
         text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
         values : [userInfo.id]
     }
-
+    
+    if (err) {
+      res.status(500).send(err);
+      console.log(err);
+      return console.log('fail');
+    }
+    
     if(cachedConnections[token] === undefined)
     {
       var second = 1000;
@@ -183,11 +189,6 @@ app.post('/loginServer', function(req, res){
     /*console.log(userInfo);
     console.log('-----------------')
     console.log(conn);*/
-    if (err) {
-      res.status(500).send(err);
-      console.log(err);
-      return console.log('fail');
-    }
     
     client.query(query, function(error, data) {
       var row = data['rows'][0];
