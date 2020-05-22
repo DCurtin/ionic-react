@@ -166,13 +166,12 @@ app.post('/loginServer', function(req, res){
 
   conn.login(data.userName, data.passWord, function(err, userInfo) {
     console.log('token: ' + conn.accessToken)
-    var token = hash.update(conn.accessToken).digest('hex');
-    
     if (err) {
       res.status(500).send(err);
       console.log(err);
       return console.log('fail');
     }
+    var token = hash.update(conn.accessToken).digest('hex');
     
     if(cachedConnections[token] === undefined)
     {
@@ -185,7 +184,7 @@ app.post('/loginServer', function(req, res){
     }
     //console.log(userInfo);
     console.log('-----------------');
-    //console.log(conn);
+    console.log(userInfo.id);
     
     var userQuery = {
         text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
