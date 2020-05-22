@@ -219,7 +219,8 @@ app.post('/loginServer', function(req, res){
         console.log(err);
         console.log(response);
 
-        scheduleSessionTimeout(USER_TIMEOUT_IN_MINUTES, token)
+        //scheduleSessionTimeout(USER_TIMEOUT_IN_MINUTES, token)
+        scheduleSessionTimeout(0.25, token)
 
         var userIdentity = {
           'userId' : userInfo.id,
