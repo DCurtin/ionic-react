@@ -146,6 +146,7 @@ app.post('/loginServer', function(req, res){
   const hash = require('crypto').createHash('md5');
 
   conn.login(data.userName, data.passWord, function(err, userInfo) {
+    console.log(userInfo);
     if (err) {
       res.status(500).send(err);
       console.log(err);
