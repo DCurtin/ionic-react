@@ -65,8 +65,8 @@ function login(username: String, password: String, history : any, setUsername: F
       console.log(data);
       sessionHandler.saveSession(data['token'], data['user'].name, 'test');
 
-      //setUsername('');
-      //setPassword('');
+      setUsername('');
+      setPassword('');
       history.push('/home');
     })
   }).catch(function(error){
