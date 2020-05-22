@@ -83,13 +83,8 @@ const Home: React.FC = () => {
           }))}
         </IonList>
       </IonContent>
-  ) : redirectToLogin(setInActiveSession);
+  ) : <Redirect to='/'/>
 };
-
-function redirectToLogin(setInActiveSession : Function){
-  setInActiveSession(false);
-  return (<Redirect to='/'/>);
-}
 
 function logout(setInActiveSession : Function){
   getToken().then(function(result){
