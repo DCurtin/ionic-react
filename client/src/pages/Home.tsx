@@ -37,9 +37,7 @@ const Home: React.FC = () => {
  //   setResult(data);
  // });
   //}
-
-  if(userName === '')
-  {
+  useEffect(()=>{
     Storage.get({key: 'name'}).then(function(result)
     {
       var value : string
@@ -48,7 +46,7 @@ const Home: React.FC = () => {
       setUserName(value);
       
     })
-  }
+  },[])
 
   return (
       <IonContent>
@@ -58,7 +56,7 @@ const Home: React.FC = () => {
           <IonButton onClick={() => logout(history)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
-        {useAffectToGetAccounts()}
+        {useEffectToGetAccounts()}
       </IonContent>
   )
 };
@@ -77,7 +75,7 @@ function logout(history : any){
   })
 }
 
-function useAffectToGetAccounts(){
+function useEffectToGetAccounts(){
   const [result, setResult] = useState([{any : String}]);
   useEffect(()=>{
     getAccounts().then(function(data : any){
