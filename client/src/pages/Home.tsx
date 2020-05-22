@@ -96,7 +96,7 @@ function logout(history : any){
   }
 
     sessionHandler.callOutFetch(url, options).then(()=>{
-    history.replace('#/login');
+    history.replace('/login');
   })
 }
 
