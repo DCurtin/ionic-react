@@ -29,8 +29,14 @@ const Login: React.FC = () => {
             </IonList>
       </IonContent>
     </IonPage>
-  ):(<Redirect to='/home'/>);
+  ):redirectHome(setGoToHome);
 };
+
+function redirectHome(setGoToHome : Function)
+{
+  setGoToHome(false);
+  return (<Redirect to='/home'/>);
+}
 
 function login(username: String, password: String, setGoToHome : Function){
   var un = username;

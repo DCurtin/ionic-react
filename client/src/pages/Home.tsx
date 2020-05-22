@@ -10,7 +10,7 @@ const { Storage } = Plugins;
 const Home: React.FC = () => {
   const [result, setResult] = useState([{any : String}]);
   const [userName, setUserName] = useState('');
-  const [activeSession, setActiveSession] = useState(false);
+  const [inActiveSession, setInActiveSession] = useState(false);
 
   //console.log(result.length)
   //console.log(result[0])
@@ -66,13 +66,13 @@ const Home: React.FC = () => {
         <ExploreContainer />
       </IonContent>
     </IonPage>
-  ) : (!activeSession) ? 
+  ) : (!inActiveSession) ? 
   (
       <IonContent>
         <IonHeader>
         <IonToolbar>
           <IonTitle>MDY114 THIS IS MY HOME PAGE {userName} </IonTitle>
-          <IonButton onClick={() => logout(setActiveSession)}>Logout</IonButton>
+          <IonButton onClick={() => logout(setInActiveSession)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
         <IonList>
@@ -83,10 +83,15 @@ const Home: React.FC = () => {
           }))}
         </IonList>
       </IonContent>
-  ) : (<Redirect to='/'/>);
+  ) : redirectToLogin(setInActiveSession);
 };
 
-function logout(setActiveSession : Function){
+function redirectToLogin(setInActiveSession : Function){
+  setInActiveSession(false);
+  return (<Redirect to='/'/>);
+}
+
+function logout(setInActiveSession : Function){
   getToken().then(function(result){
     var userSession = result.value;
     var url = '/logout'
@@ -101,7 +106,7 @@ function logout(setActiveSession : Function){
     }
 
     fetch(url, options).then(()=>{
-      setActiveSession(true);
+      setInActiveSession(true);
     })
   })
 }
