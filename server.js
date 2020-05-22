@@ -20,11 +20,11 @@ app.use(function(req, res, next) {
 var connectionString = process.env.DATABASE_URL || 'postgresql://postgres@localhost/salesforce';
 console.log('query url: ' +  connectionString)
 var client = new pg.Client(connectionString);
+client.connect();
 
 var accountTable = 'salesforce.account';
 
 
-//client.connect();
 
 app.use(express.static(path.join(__dirname,"client", "build")));
 
@@ -190,7 +190,7 @@ app.post('/loginServer', function(req, res){
         text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
         values : [userInfo.id]
     }
-    client.query(userQuery).then( result => {
+    client.query(userQuery).then( function(result){
       console.log('user query');
       console.log(result );
       console.log('user query err');
