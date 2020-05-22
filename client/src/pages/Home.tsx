@@ -24,6 +24,7 @@ const Home: React.FC = () => {
   },[])
 
   return (
+    <IonPage>
       <IonContent>
         <IonHeader>
         <IonToolbar>
@@ -33,6 +34,7 @@ const Home: React.FC = () => {
       </IonHeader>
         {useEffectToGetAccounts()}
       </IonContent>
+      </IonPage>
   )
 };
 

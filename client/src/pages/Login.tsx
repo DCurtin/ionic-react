@@ -14,7 +14,7 @@ const Login: React.FC = () => {
   var inputFieldSetters = [setUsername, setPassword];
 
   const history = useHistory();
-
+  // onKeyUp={e => e.key === 'Enter' ? login(username, password, history, setUsername, setPassword) : null} 
   return (
     <IonPage>
       <IonHeader>
