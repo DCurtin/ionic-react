@@ -165,6 +165,7 @@ app.post('/loginServer', function(req, res){
   });
 
   conn.login(data.userName, data.passWord, function(err, userInfo) {
+    console.log('token: ' + conn.accessToken)
     var token = hash.update(conn.accessToken).digest('hex');
     var userQuery = {
         text : 'SELECT * FROM salesforce.user WHERE sfid = $1',
