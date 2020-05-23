@@ -11,6 +11,7 @@ const { Storage } = Plugins;
 const Home: React.FC = () => {
   const history = useHistory();
   const [userName, setUserName] = useState('');
+  const [initialized, setInitialized] = useState(false);
   
   console.log('fc refreshed');
 
@@ -51,7 +52,7 @@ function logout(history : any, setUserName : Function){
 
     sessionHandler.callOutFetch(url, options).then(()=>{
     setUserName('');
-    history.replace('/login');
+    history.push('/login');
   })
 }
 
