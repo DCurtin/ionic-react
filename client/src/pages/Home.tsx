@@ -68,7 +68,7 @@ function logout(history : any, setUserName : Function){
 
     sessionHandler.callOutFetch(url, options).then(()=>{
     setUserName('');
-    history.push('/login');
+    history.replace('/login');
   })
 }
 

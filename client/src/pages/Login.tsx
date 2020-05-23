@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton, IonInput } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton, IonInput, IonGrid, IonRow, IonCol } from '@ionic/react';
 
 import { useHistory } from 'react-router-dom';
 
@@ -9,13 +9,28 @@ import sessionHandler from '../helpers/sessionHandler'
 import './Login.css';
 
 const Login: React.FC = () => {
+  var gridView = true;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   var inputFieldSetters = [setUsername, setPassword];
 
   const history = useHistory();
   // onKeyUp={e => e.key === 'Enter' ? login(username, password, history, setUsername, setPassword) : null} 
-  return (
+  return gridView ? (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Login Page </IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonGrid>
+        <IonRow><IonCol>UserName: </IonCol><IonCol> <IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput> </IonCol></IonRow>
+        <IonRow><IonCol>Password: </IonCol><IonCol> <IonInput type="password" value={password} placeholder="Enter Input" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput> </IonCol></IonRow>
+        <IonRow><IonCol><IonButton onClick={() => {login(username, password, history, setUsername, setPassword)}}> Sign In </IonButton></IonCol></IonRow>
+      </IonGrid>
+    </IonPage>
+  ) 
+  :(
     <IonPage>
       <IonHeader>
         <IonToolbar>
@@ -34,6 +49,7 @@ const Login: React.FC = () => {
     </IonPage>
   )
 };
+
 
 function login(username: String, password: String, history : any, setUsername: Function, setPassword: Function){
   var un = username;
