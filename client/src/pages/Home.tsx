@@ -93,7 +93,7 @@ function useEffectToGetAccounts(){
           </IonRow>
           {(result.map(function(row: any, i : any){
             //console.log(row);
-            return <IonRow> <IonItem> <IonCol>{row['sfid']}</IonCol>  <IonCol>{row['name']}</IonCol> <IonCol><IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonCol></IonItem></IonRow>
+            return <IonItem><IonRow><IonCol>{row['sfid']}</IonCol>  <IonCol>{row['name']}</IonCol> <IonCol><IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonCol></IonRow></IonItem>
           }))}
         </IonGrid>):
         "You are not signed in."
