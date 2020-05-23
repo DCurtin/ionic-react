@@ -1,0 +1,8 @@
+ion-grid{
+    --ion-grid-padding-lg: 'false';
+    --ion-grid-width-lg: 100;
+}
+
+ion-button{
+    --background: #FF0000;
+}
