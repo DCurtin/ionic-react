@@ -16,10 +16,10 @@ const Home: React.FC = () => {
   console.log('fc refreshed');
 
   useEffect(()=>{
-    if(userName !== '')
-    {
+    if(userName !== '' && userName !== null){
       return;
     }
+    
     Storage.get({key: 'name'}).then(function(result)
     {
       var value : string
@@ -28,14 +28,14 @@ const Home: React.FC = () => {
       setUserName(value);
       
     })
-  })
+  }, [userName]);
 
   return (
     <IonPage>
       <IonContent>
         <IonHeader>
         <IonToolbar>
-          <IonTitle>MDY114 THIS IS MY HOME PAGE {userName} </IonTitle>
+          <IonTitle>MDY114 THIS IS MY HOME PAGE {getUserName()} </IonTitle>
           <IonButton onClick={() => logout(history, setUserName)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
@@ -44,6 +44,18 @@ const Home: React.FC = () => {
       </IonPage>
   )
 };
+
+function getUserName(){
+  return Storage.get({key: 'name'}).then(function(result)
+    {
+      var value : string
+      value = String(result.value);
+      console.log(result.value);
+      //setUserName(value);
+      return value
+      
+    })
+}
 
 function logout(history : any, setUserName : Function){
   var url = '/logoutServer'
@@ -60,13 +72,18 @@ function logout(history : any, setUserName : Function){
   })
 }
 
-function useEffectToGetAccounts(userName : any){
+function useEffectToGetAccounts(){
   const [result, setResult] = useState([{any : String}]);
   useEffect(()=>{
+    if(result?.length !== 1 && result !== null)
+    {
+      return;
+    }
+
     getAccounts().then(function(data : any){
     setResult(data);
     });
-  }, [userName]);
+  }, [result]);
   return result !== undefined ? (<IonList>
           <IonItem>SFID And Name</IonItem>
           {(result.map(function(row: any, i : any){
