@@ -11,6 +11,8 @@ const { Storage } = Plugins;
 const Home: React.FC = () => {
   const history = useHistory();
   const [userName, setUserName] = useState('');
+  
+  console.log('fc refreshed');
 
   useEffect(()=>{
     Storage.get({key: 'name'}).then(function(result)
@@ -32,7 +34,7 @@ const Home: React.FC = () => {
           <IonButton onClick={() => logout(history)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
-        {useEffectToGetAccounts()}
+        {useEffectToGetAccounts(userName)}
       </IonContent>
       </IonPage>
   )
@@ -52,13 +54,13 @@ function logout(history : any){
   })
 }
 
-function useEffectToGetAccounts(){
+function useEffectToGetAccounts(userName : any){
   const [result, setResult] = useState([{any : String}]);
   useEffect(()=>{
     getAccounts().then(function(data : any){
     setResult(data);
     });
-  }, []);
+  }, [userName]);
   return result !== undefined ? (<IonList>
           <IonItem>SFID And Name</IonItem>
           {(result.map(function(row: any, i : any){
