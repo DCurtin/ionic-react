@@ -31,7 +31,7 @@ const Home: React.FC = () => {
         <IonHeader>
         <IonToolbar>
           <IonTitle>MDY114 THIS IS MY HOME PAGE {userName} </IonTitle>
-          <IonButton onClick={() => logout(history)}>Logout</IonButton>
+          <IonButton onClick={() => logout(history, setUserName)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
         {useEffectToGetAccounts(userName)}
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
   )
 };
 
-function logout(history : any){
+function logout(history : any, setUserName : Function){
   var url = '/logoutServer'
   var options = {
     method : 'POST',
@@ -50,6 +50,7 @@ function logout(history : any){
   }
 
     sessionHandler.callOutFetch(url, options).then(()=>{
+    setUserName('');
     history.replace('/login');
   })
 }
