@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
 import { Plugins } from '@capacitor/core';
 import React, {useState, useEffect} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
@@ -84,13 +84,17 @@ function useEffectToGetAccounts(){
     setResult(data);
     });
   }, [result]);
-  return result !== undefined ? (<IonList>
-          <IonItem>SFID And Name</IonItem>
+  return result !== undefined ? (
+        <IonGrid>
+          <IonRow>
+            <IonCol>SFID</IonCol>
+            <IonCol>Name</IonCol>
+          </IonRow>
           {(result.map(function(row: any, i : any){
             //console.log(row);
-            return <IonItem>{row['sfid']}  {row['name']} <IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonItem>
+            return <IonRow> <IonCol>{row['sfid']}</IonCol>  <IonCol>{row['name']}</IonCol> <IonCol><IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonCol></IonRow>
           }))}
-        </IonList>):
+        </IonGrid>):
         "You are not signed in."
 }
 
