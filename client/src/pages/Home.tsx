@@ -16,6 +16,10 @@ const Home: React.FC = () => {
   console.log('fc refreshed');
 
   useEffect(()=>{
+    if(userName !== '')
+    {
+      return;
+    }
     Storage.get({key: 'name'}).then(function(result)
     {
       var value : string
@@ -24,7 +28,7 @@ const Home: React.FC = () => {
       setUserName(value);
       
     })
-  },[])
+  })
 
   return (
     <IonPage>
