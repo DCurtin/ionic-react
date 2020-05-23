@@ -24,8 +24,8 @@ const Login: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonGrid>
-        <IonRow><IonCol>UserName: </IonCol><IonCol> <IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput> </IonCol></IonRow>
-        <IonRow><IonCol>Password: </IonCol><IonCol> <IonInput type="password" value={password} placeholder="Enter Input" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput> </IonCol></IonRow>
+        <IonRow><IonCol>UserName: <IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput> </IonCol></IonRow>
+        <IonRow><IonCol>Password:  <IonInput type="password" value={password} placeholder="Enter Input" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput> </IonCol></IonRow>
         <IonRow><IonCol><IonButton onClick={() => {login(username, password, history, setUsername, setPassword)}}> Sign In </IonButton></IonCol></IonRow>
       </IonGrid>
     </IonPage>
