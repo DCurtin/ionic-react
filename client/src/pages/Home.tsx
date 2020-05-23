@@ -35,8 +35,8 @@ const Home: React.FC = () => {
       <IonContent>
         <IonHeader>
         <IonToolbar>
-          <IonTitle>Account Page {userName} </IonTitle>
-          <IonButton onClick={() => logout(history, setUserName)}>Logout</IonButton>
+          <IonTitle>Account Page {userName}</IonTitle>
+          <IonButton size='small' onClick={() => logout(history, setUserName)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
         {useEffectToGetAccounts()}
@@ -96,7 +96,16 @@ function useEffectToGetAccounts(){
             return <IonRow class='rowcoloring'><IonCol>{row['sfid']}</IonCol>  <IonCol>{row['name']}</IonCol> <IonCol><IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonCol></IonRow>
           }))}
         </IonGrid>):
-        "You are not signed in."
+        (<IonGrid>
+        <IonRow>
+          <IonCol>SFID</IonCol>
+          <IonCol>Name</IonCol>
+          <IonCol>Create Transaction</IonCol>
+        </IonRow>
+        <IonRow class='rowcoloring'><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
+        <IonRow class='rowcoloring'><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
+        <IonRow class='rowcoloring'><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
+        </IonGrid>)
 }
 
 function getAccounts(){
