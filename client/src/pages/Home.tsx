@@ -19,7 +19,7 @@ const Home: React.FC = () => {
     if(userName !== '' && userName !== null){
       return;
     }
-    
+
     Storage.get({key: 'name'}).then(function(result)
     {
       var value : string
@@ -39,7 +39,7 @@ const Home: React.FC = () => {
           <IonButton onClick={() => logout(history, setUserName)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
-        {useEffectToGetAccounts(userName)}
+        {useEffectToGetAccounts()}
       </IonContent>
       </IonPage>
   )
