@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton, IonInput, IonGrid, IonRow, IonCol } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton, IonInput, IonGrid, IonRow, IonCol, IonCard, IonImg } from '@ionic/react';
 
 import { useHistory } from 'react-router-dom';
 
@@ -18,33 +18,34 @@ const Login: React.FC = () => {
   // onKeyUp={e => e.key === 'Enter' ? login(username, password, history, setUsername, setPassword) : null} 
   return gridView ? (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Login Page </IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonGrid>
-        <IonRow><IonCol >UserName: <IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput> </IonCol></IonRow>
-        <IonRow><IonCol>Password:  <IonInput type="password" value={password} placeholder="Enter Input" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput> </IonCol></IonRow>
-        <IonRow><IonCol><IonButton onClick={() => {login(username, password, history, setUsername, setPassword)}}> Sign In </IonButton></IonCol></IonRow>
-      </IonGrid>
+      <IonContent>
+        <IonGrid>
+          <IonRow className="ion-justify-content-center" >
+          <IonCol size="4">
+            <IonCard>
+              <IonGrid >
+                <IonRow><IonCol class='container1'>  <img src={'/assets/CommunityMidlandLogo.gif'} /> </IonCol></IonRow>
+                <IonRow><IonCol> <IonItem> <IonInput class='item-input' value={username} placeholder="User Name" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem> </IonCol></IonRow>
+                <IonRow><IonCol> <IonItem> <IonInput class='item-input' type="password" value={password} placeholder="Password" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput> </IonItem> </IonCol></IonRow>
+                <IonRow><IonCol><IonButton expand='full' onClick={() => {login(username, password, history, setUsername, setPassword)}}> Log In </IonButton></IonCol></IonRow>
+              </IonGrid>
+            </IonCard>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+      </IonContent>
     </IonPage>
   ) 
   :(
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Login Page </IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent>
+        <IonCard>
             <IonList>
-              <IonItem><IonTitle size="large">UserName</IonTitle></IonItem>
-              <IonItem><IonInput value={username} placeholder="Enter Input" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem>
-              <IonItem><IonTitle size="large">Password</IonTitle></IonItem>
-              <IonItem><IonInput type="password" value={password} placeholder="Enter Input" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput></IonItem>
+              <IonItem><IonInput value={username} placeholder="Username" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem>
+              <IonItem><IonInput type="password" value={password} placeholder="Password" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput></IonItem>
               <IonItem><IonButton onClick={() => {login(username, password, history, setUsername, setPassword)}}> Sign In </IonButton></IonItem>
             </IonList>
+        </IonCard>
       </IonContent>
     </IonPage>
   )

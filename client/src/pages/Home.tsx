@@ -35,7 +35,7 @@ const Home: React.FC = () => {
       <IonContent>
         <IonHeader>
         <IonToolbar>
-          <IonTitle>MDY114 THIS IS MY HOME PAGE {userName} </IonTitle>
+          <IonTitle>Account Page {userName} </IonTitle>
           <IonButton onClick={() => logout(history, setUserName)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>

@@ -1,8 +1,37 @@
+ion-content{
+    --background: #B1BAC0;
+}
+
+ion-card{
+    --background: #E9E9E9;
+    --width: 200;
+}
+
+ion-img{
+    
+}
+
+ion-item{
+    --background: rgb(255, 255, 255);
+    --color: rgb(0, 0, 0);
+    --highlight-height: 0;
+    --border-width: 0;
+}
+
 ion-grid{
-    --ion-grid-padding-lg: 'false';
-    --ion-grid-width-lg: 100;
+    --color: rgb(255, 255, 255);
 }
 
 ion-button{
-    --background: #FF0000;
+    --background: #F37321;
+}
+
+.container2  {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container1{
+    text-align: center;
 }
