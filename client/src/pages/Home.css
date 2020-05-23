@@ -44,3 +44,7 @@ ion-button{
 .container1{
     text-align: center;
 }
+
+.rowcoloring{
+    --ion-color-primary: #E9E9E9;
+}

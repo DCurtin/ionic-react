@@ -21,13 +21,13 @@ const Login: React.FC = () => {
       <IonContent>
         <IonGrid>
           <IonRow className="ion-justify-content-center" >
-          <IonCol size="4">
+          <IonCol size="5">
             <IonCard>
               <IonGrid >
-                <IonRow><IonCol class='container1'>  <img src={'/assets/CommunityMidlandLogo.gif'} /> </IonCol></IonRow>
-                <IonRow><IonCol> <IonItem> <IonInput class='item-input' value={username} placeholder="User Name" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem> </IonCol></IonRow>
-                <IonRow><IonCol> <IonItem> <IonInput class='item-input' type="password" value={password} placeholder="Password" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput> </IonItem> </IonCol></IonRow>
-                <IonRow><IonCol><IonButton expand='full' onClick={() => {login(username, password, history, setUsername, setPassword)}}> Log In </IonButton></IonCol></IonRow>
+                <IonRow><IonCol class='imageContainer'>  <img src={'/assets/CommunityMidlandLogo.gif'} /> </IonCol></IonRow>
+                <IonRow class='rowcoloring'><IonCol> <IonItem> <IonInput class='item-input' value={username} placeholder="User Name" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem> </IonCol></IonRow>
+                <IonRow class='rowcoloring'><IonCol> <IonItem> <IonInput class='item-input' type="password" value={password} placeholder="Password" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput> </IonItem> </IonCol></IonRow>
+                <IonRow class='rowcoloring'><IonCol><IonButton expand='full' onClick={() => {login(username, password, history, setUsername, setPassword)}}> Log In </IonButton></IonCol></IonRow>
               </IonGrid>
             </IonCard>
             </IonCol>

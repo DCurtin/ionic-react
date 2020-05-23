@@ -7,10 +7,6 @@ ion-card{
     --width: 200;
 }
 
-ion-img{
-    
-}
-
 ion-item{
     --background: rgb(255, 255, 255);
     --color: rgb(0, 0, 0);
@@ -18,20 +14,11 @@ ion-item{
     --border-width: 0;
 }
 
-ion-grid{
-    --color: rgb(255, 255, 255);
-}
 
 ion-button{
     --background: #F37321;
 }
 
-.container2  {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.container1{
+.imageContainer{
     text-align: center;
 }
