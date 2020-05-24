@@ -11,7 +11,7 @@ const { Storage } = Plugins;
 const Home: React.FC = () => {
   const history = useHistory();
   const [userName, setUserName] = useState('');
-  const [initialized, setInitialized] = useState(false);
+  const [result, setResult] = useState([{any : String}]);
   
   console.log('fc refreshed');
 
@@ -30,6 +30,17 @@ const Home: React.FC = () => {
     })
   }, [userName]);
 
+  useEffect(()=>{
+    if(result?.length !== 1 && result !== null)
+    {
+      return;
+    }
+
+    getAccounts().then(function(data : any){
+      setResult(data);
+    });
+  }, [result]);
+
   return (
     <IonPage>
       <IonContent className={styles.ionContent}>
@@ -39,7 +50,7 @@ const Home: React.FC = () => {
           <IonButton className={styles.ionButton} size='small' onClick={() => logout(history, setUserName)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
-        {useEffectToGetAccounts()}
+        {useEffectToGetAccounts(result)}
       </IonContent>
       </IonPage>
   )
@@ -57,7 +68,7 @@ function getUserName(){
     })
 }
 
-function logout(history : any, setUserName : Function){
+function logout(history : any, setUserName : Function, setResult : Function){
   var url = '/logoutServer'
   var options = {
     method : 'POST',
@@ -68,22 +79,12 @@ function logout(history : any, setUserName : Function){
 
     sessionHandler.callOutFetch(url, options).then(()=>{
     setUserName('');
+    setResult(null);
     history.replace('/login');
   })
 }
 
-function useEffectToGetAccounts(){
-  const [result, setResult] = useState([{any : String}]);
-  useEffect(()=>{
-    if(result?.length !== 1 && result !== null)
-    {
-      return;
-    }
-
-    getAccounts().then(function(data : any){
-    setResult(data);
-    });
-  }, [result]);
+function useEffectToGetAccounts(result : any){
   return result !== undefined ? (
         <IonGrid>
           <IonRow className={[styles.ionRowColoring, styles.ionRowHeader].join(' ')}>
