@@ -22,18 +22,19 @@
     --background: #F37321;
 }
 
+.ionRowHeader{
+    margin-top: 5pt;
+}
 
 .ionRowColoring:nth-child(even){
     background: rgb(108, 106, 106);
     color: white;
     margin-bottom: 5pt;
+    padding: 10px 0;
 }
 .ionRowColoring:nth-child(odd){
     background: #E9E9E9;
     color: black;
     margin-bottom: 5pt;
-}
-
-.cellTextVerticalAlign{
     padding: 10px 0;
 }

@@ -86,7 +86,7 @@ function useEffectToGetAccounts(){
   }, [result]);
   return result !== undefined ? (
         <IonGrid>
-          <IonRow className={styles.ionRowColoring}>
+          <IonRow className={[styles.ionRowColoring, styles.ionRowHeader].join(' ')}>
             <IonCol>SFID</IonCol>
             <IonCol>Name</IonCol>
             <IonCol>Create Transaction</IonCol>
@@ -102,9 +102,9 @@ function useEffectToGetAccounts(){
           <IonCol>Name</IonCol>
           <IonCol>Create Transaction</IonCol>
         </IonRow>
-        <IonRow className={styles.ionRowColoring}><IonCol className={styles.cellTextVerticalAlign}> col 1</IonCol> <IonCol className={styles.cellTextVerticalAlign}> col 2</IonCol> <IonCol className={styles.cellTextVerticalAlign}> col 3</IonCol></IonRow>
-        <IonRow className={styles.ionRowColoring}><IonCol className={styles.cellTextVerticalAlign}> col 1</IonCol> <IonCol className={styles.cellTextVerticalAlign}> col 2</IonCol> <IonCol className={styles.cellTextVerticalAlign}> col 3</IonCol></IonRow>
-        <IonRow className={styles.ionRowColoring}><IonCol className={styles.cellTextVerticalAlign}> col 1</IonCol> <IonCol className={styles.cellTextVerticalAlign}> col 2</IonCol> <IonCol className={styles.cellTextVerticalAlign}> col 3</IonCol></IonRow>
+        <IonRow className={styles.ionRowColoring}><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
+        <IonRow className={styles.ionRowColoring}><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
+        <IonRow className={styles.ionRowColoring}><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
         </IonGrid>)
 }
 
