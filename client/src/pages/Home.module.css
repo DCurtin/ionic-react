@@ -22,21 +22,6 @@
     --background: #F37321;
 }
 
-.container2  {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.container1{
-    text-align: center;
-}
-
-.rowcoloring1{
-    background: #E9E9E9;
-    color: rgb(0, 0, 0);
-    margin-bottom: 5pt;
-}
 
 .ionRowColoring:nth-child(even){
     background: rgb(108, 106, 106);
@@ -47,4 +32,8 @@
     background: #E9E9E9;
     color: black;
     margin-bottom: 5pt;
+}
+
+.cellTextVerticalAlign{
+    padding: 10px 0;
 }
