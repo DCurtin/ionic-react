@@ -6,7 +6,7 @@ import React, {useState} from 'react';
 
 import sessionHandler from '../helpers/sessionHandler'
 
-import './Login.css';
+import styles from './Login.module.css';
 
 const Login: React.FC = () => {
   var gridView = true;
@@ -18,16 +18,16 @@ const Login: React.FC = () => {
   // onKeyUp={e => e.key === 'Enter' ? login(username, password, history, setUsername, setPassword) : null} 
   return gridView ? (
     <IonPage>
-      <IonContent>
+      <IonContent className={styles.ionContent}>
         <IonGrid>
           <IonRow className="ion-justify-content-center" >
           <IonCol size="5">
-            <IonCard>
-              <IonGrid >
-                <IonRow><IonCol class='imageContainer'>  <img src={'/assets/CommunityMidlandLogo.gif'} /> </IonCol></IonRow>
-                <IonRow><IonCol> <IonItem> <IonInput class='item-input' value={username} placeholder="User Name" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem> </IonCol></IonRow>
-                <IonRow><IonCol> <IonItem> <IonInput class='item-input' type="password" value={password} placeholder="Password" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput> </IonItem> </IonCol></IonRow>
-                <IonRow><IonCol><IonButton expand='full' onClick={() => {login(username, password, history, setUsername, setPassword)}}> Log In </IonButton></IonCol></IonRow>
+            <IonCard className={styles.ionCard}>
+              <IonGrid>
+                <IonRow><IonCol className={styles.imageContainer}>  <img src={'/assets/CommunityMidlandLogo.gif'} /> </IonCol></IonRow>
+                <IonRow><IonCol> <IonItem className={styles.ionItem}> <IonInput class='item-input' value={username} placeholder="User Name" onIonChange={e => setUsername(e.detail.value!)} clearInput></IonInput></IonItem> </IonCol></IonRow>
+                <IonRow><IonCol> <IonItem className={styles.ionItem}> <IonInput class='item-input' type="password" value={password} placeholder="Password" onIonChange={e => setPassword(e.detail.value!)} clearInput></IonInput> </IonItem> </IonCol></IonRow>
+                <IonRow><IonCol><IonButton className={styles.ionButton} expand='full' onClick={() => {login(username, password, history, setUsername, setPassword)}}> Log In </IonButton></IonCol></IonRow>
               </IonGrid>
             </IonCard>
             </IonCol>

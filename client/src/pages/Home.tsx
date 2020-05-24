@@ -1,10 +1,10 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
 import { Plugins } from '@capacitor/core';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import sessionHandler from '../helpers/sessionHandler';
 import { useHistory } from 'react-router-dom';
-import './Home.css';
+import styles from './Home.module.css';
 
 const { Storage } = Plugins;
 
@@ -32,11 +32,11 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent>
+      <IonContent className={styles.ionContent}>
         <IonHeader>
-        <IonToolbar>
+        <IonToolbar className={styles.ionToolbar}>
           <IonTitle>Account Page {userName}</IonTitle>
-          <IonButton size='small' onClick={() => logout(history, setUserName)}>Logout</IonButton>
+          <IonButton className={styles.ionButton} size='small' onClick={() => logout(history, setUserName)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
         {useEffectToGetAccounts()}
@@ -86,14 +86,14 @@ function useEffectToGetAccounts(){
   }, [result]);
   return result !== undefined ? (
         <IonGrid>
-          <IonRow>
+          <IonRow className={styles.ionRowColoring}>
             <IonCol>SFID</IonCol>
             <IonCol>Name</IonCol>
             <IonCol>Create Transaction</IonCol>
           </IonRow>
           {(result.map(function(row: any, i : any){
             //console.log(row);
-            return <IonRow class='rowcoloring'><IonCol>{row['sfid']}</IonCol>  <IonCol>{row['name']}</IonCol> <IonCol><IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonCol></IonRow>
+            return <IonRow className={styles.ionRowColoring}><IonCol>{row['sfid']}</IonCol>  <IonCol>{row['name']}</IonCol> <IonCol><IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonCol></IonRow>
           }))}
         </IonGrid>):
         (<IonGrid>
@@ -102,9 +102,9 @@ function useEffectToGetAccounts(){
           <IonCol>Name</IonCol>
           <IonCol>Create Transaction</IonCol>
         </IonRow>
-        <IonRow class='rowcoloring'><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
-        <IonRow class='rowcoloring'><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
-        <IonRow class='rowcoloring'><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
+        <IonRow className={styles.ionRowColoring}><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
+        <IonRow className={styles.ionRowColoring}><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
+        <IonRow className={styles.ionRowColoring}><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
         </IonGrid>)
 }
 
