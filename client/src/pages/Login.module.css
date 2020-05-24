@@ -1,13 +1,13 @@
-ion-content{
+.ionContent{
     --background: #B1BAC0;
 }
 
-ion-card{
+.ionCard{
     --background: #E9E9E9;
     --width: 200;
 }
 
-ion-item{
+.ionItem{
     --background: rgb(255, 255, 255);
     --color: rgb(0, 0, 0);
     --highlight-height: 0;
@@ -15,7 +15,7 @@ ion-item{
 }
 
 
-ion-button{
+.ionButton{
     --background: #F37321;
 }
 
