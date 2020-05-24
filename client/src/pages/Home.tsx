@@ -47,7 +47,7 @@ const Home: React.FC = () => {
         <IonHeader>
         <IonToolbar className={styles.ionToolbar}>
           <IonTitle>Account Page {userName}</IonTitle>
-          <IonButton className={styles.ionButton} size='small' onClick={() => logout(history, setUserName)}>Logout</IonButton>
+          <IonButton className={styles.ionButton} size='small' onClick={() => logout(history, setUserName, setResult)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
         {useEffectToGetAccounts(result)}
