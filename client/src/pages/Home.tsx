@@ -6,39 +6,27 @@ import sessionHandler from '../helpers/sessionHandler';
 import { useHistory } from 'react-router-dom';
 import styles from './Home.module.css';
 
+interface IRecipeProps {
+  userName?: String
+}
+
+interface IRecipeState {
+}
+
+
 const { Storage } = Plugins;
 
-const Home: React.FC = (props : any) => {
+const Home: React.FC<IRecipeProps> = ({ userName}) => {
   const history = useHistory();
-  var passedInUsername = props?.location?.state?.userName;
-  const [userName, setUserName] = useState(passedInUsername);
+
+  //const [userName, setUserName] = useState(passedInUsername);
   const [result, setResult] = useState([{any : String}]);
-  console.log(props);
-  
-  console.log('fc refreshed');
-  console.log('username from props ' + passedInUsername)
 
-
-  /*useEffect(()=>{
-    if(userName !== '' && userName !== undefined){
-      return;
-    }
-
-    Storage.get({key: 'name'}).then(function(result)
-    {
-      var value : string
-      value = String(result.value);
-      console.log(result.value);
-      setUserName(value);
-      
-    })
-  }, []);*/
-
-  /*useEffect(()=>{
+  useEffect(()=>{
     getAccounts().then(function(data : any){
       setResult(data);
     });
-  }, [userName]);*/
+  }, [userName]);
 
   return (
     <IonPage>
@@ -91,11 +79,11 @@ function useEffectToGetAccounts(result : any){
             <IonCol>Name</IonCol>
             <IonCol>Create Transaction</IonCol>
           </IonRow>
-          {(getAccounts().then(function(data : any){
-            data.map(function(row: any, i : any){
+          {(
+            result.map(function(row: any, i : any){
             //console.log(row);
             return <IonRow className={styles.ionRowColoring}><IonCol>{row['sfid']}</IonCol>  <IonCol>{row['name']}</IonCol> <IonCol><IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonCol></IonRow>
-          })}))}
+            }))}
         </IonGrid>):
         (<IonGrid>
         <IonRow>
