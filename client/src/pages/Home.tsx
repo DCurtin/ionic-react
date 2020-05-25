@@ -16,9 +16,10 @@ interface IRecipeState {
 
 const { Storage } = Plugins;
 
-const Home: React.FC<IRecipeProps> = ({ userName}) => {
+const Home: React.FC<IRecipeProps> = (props) => {
+  var userName = props.userName;
 const history = useHistory();
-console.log('username ' + userName);
+console.log('username ' + props);
   //const [userName, setUserName] = useState(passedInUsername);
   const [result, setResult] = useState([{any : String}]);
 
