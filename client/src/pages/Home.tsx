@@ -31,6 +31,7 @@ const Home: React.FC = () => {
   }, [userName]);
 
   useEffect(()=>{
+    console.log(result);
     if(result?.length !== 1 && result !== null)
     {
       return;
