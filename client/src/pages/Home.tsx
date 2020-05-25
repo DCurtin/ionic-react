@@ -18,8 +18,10 @@ const Home: React.FC = (props : any) => {
   console.log('fc refreshed');
   console.log('username from props ' + passedInUsername)
 
+  //re-initialize from a logged out state
   if(passedInUsername !== undefined && passedInUsername !== userName){
     setUserName(passedInUsername);
+    passedInUsername = undefined;
   }
 
   useEffect(()=>{
@@ -80,7 +82,7 @@ function logout(history : any, setUserName : Function, setResult : Function){
   }
 
     sessionHandler.callOutFetch(url, options).then(()=>{
-    //setUserName('');
+    setUserName('');
     //setResult(null);
     history.replace('/login');
   })
