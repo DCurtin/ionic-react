@@ -12,6 +12,8 @@ const Home: React.FC = (props : any) => {
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [result, setResult] = useState([{any : String}]);
+
+  console.log(props);
   if(props.userName !== undefined)
   {
     console.log('setting username from props');
