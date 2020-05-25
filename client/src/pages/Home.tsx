@@ -85,7 +85,7 @@ function logout(history : any, setUserName : Function, setResult : Function){
 }
 
 function useEffectToGetAccounts(result : any){
-  return result !== undefined ? (
+  return result !== undefined && result !== null ? (
         <IonGrid>
           <IonRow className={[styles.ionRowColoring, styles.ionRowHeader].join(' ')}>
             <IonCol>SFID</IonCol>
