@@ -18,7 +18,7 @@ const { Storage } = Plugins;
 
 const Home: React.FC<IRecipeProps> = ({ userName}) => {
 const history = useHistory();
-console.log('username');
+console.log('username ' + userName);
   //const [userName, setUserName] = useState(passedInUsername);
   const [result, setResult] = useState([{any : String}]);
 
