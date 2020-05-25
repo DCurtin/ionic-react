@@ -82,9 +82,13 @@ function login(username: String, password: String, history : any, setUsername: F
       console.log(data);
       sessionHandler.saveSession(data['token'], data['user'].name, 'test');
 
+      //history.push('/home', {userName : 'Dalton Curtin2 '});
       setUsername('');
-      history.push('/home', {userName : 'Dalton Curtin2'});
       setPassword('');
+      history.push({
+        pathname: '/home',
+        state: { userName: 'Dalton Curtin2'}
+      })
     })
   }).catch(function(error){
       console.log(error);
