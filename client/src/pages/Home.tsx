@@ -18,13 +18,8 @@ const Home: React.FC = (props : any) => {
   console.log('fc refreshed');
   console.log('username from props ' + passedInUsername)
 
-  //re-initialize from a logged out state
-  if(passedInUsername !== undefined && passedInUsername !== userName){
-    setUserName(passedInUsername);
-    passedInUsername = undefined;
-  }
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     if(userName !== '' && userName !== undefined){
       return;
     }
@@ -37,7 +32,7 @@ const Home: React.FC = (props : any) => {
       setUserName(value);
       
     })
-  }, []);
+  }, []);*/
 
   useEffect(()=>{
     getAccounts().then(function(data : any){
