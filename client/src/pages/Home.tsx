@@ -14,7 +14,7 @@ const Home: React.FC = (props : any) => {
   const [result, setResult] = useState([{any : String}]);
 
   console.log(props);
-  if(props.userName !== undefined)
+  if(props.location.state.userName !== undefined)
   {
     console.log('setting username from props');
     console.log(props.userName);
