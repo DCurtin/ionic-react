@@ -20,6 +20,7 @@ const Home: React.FC<IRecipeProps> = (props) => {
   var userName = props.userName;
 const history = useHistory();
 console.log('username ' + props);
+console.log(props);
   //const [userName, setUserName] = useState(passedInUsername);
   const [result, setResult] = useState([{any : String}]);
 
