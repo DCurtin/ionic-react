@@ -8,15 +8,21 @@ import styles from './Home.module.css';
 
 const { Storage } = Plugins;
 
-const Home: React.FC = () => {
+const Home: React.FC = (props : any) => {
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [result, setResult] = useState([{any : String}]);
+  if(props.userName !== undefined)
+  {
+    console.log('setting username from props');
+    console.log(props.userName);
+    setUserName(props.userName);
+  }
   
   console.log('fc refreshed');
 
   useEffect(()=>{
-    if(userName !== '' && userName !== null){
+    if(userName !== ''){
       return;
     }
 
@@ -28,19 +34,13 @@ const Home: React.FC = () => {
       setUserName(value);
       
     })
-  }, [userName]);
+  }, []);
 
   useEffect(()=>{
-    console.log(result);
-    if(result?.length !== 1 && result !== null)
-    {
-      return;
-    }
-
     getAccounts().then(function(data : any){
       setResult(data);
     });
-  }, [result]);
+  }, [userName]);
 
   return (
     <IonPage>
