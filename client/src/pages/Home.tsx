@@ -10,7 +10,7 @@ const { Storage } = Plugins;
 
 const Home: React.FC = (props : any) => {
   const history = useHistory();
-  var passedInUsername = props.location.state.userName;
+  var passedInUsername = props?.location?.state?.userName;
   const [userName, setUserName] = useState(passedInUsername);
   const [result, setResult] = useState([{any : String}]);
   console.log(props);
