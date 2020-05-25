@@ -25,6 +25,10 @@ const Home: React.FC<IRecipeProps> = ({ userName}) => {
   useEffect(()=>{
     getAccounts().then(function(data : any){
       setResult(data);
+      return () => {
+        console.log('unmount?');
+        setResult([])
+      }
     });
   }, [userName]);
 
@@ -34,7 +38,7 @@ const Home: React.FC<IRecipeProps> = ({ userName}) => {
         <IonHeader>
         <IonToolbar className={styles.ionToolbar}>
           <IonTitle>Account Page {userName}</IonTitle>
-          <IonButton className={styles.ionButton} size='small' onClick={() => logout(history, setUserName, setResult)}>Logout</IonButton>
+          <IonButton className={styles.ionButton} size='small' onClick={() => logout(history, setResult)}>Logout</IonButton>
         </IonToolbar>
       </IonHeader>
         {useEffectToGetAccounts(result)}
@@ -55,7 +59,7 @@ function getUserName(){
     })
 }
 
-function logout(history : any, setUserName : Function, setResult : Function){
+function logout(history : any, setResult : Function){
   var url = '/logoutServer'
   var options = {
     method : 'POST',
@@ -65,7 +69,6 @@ function logout(history : any, setUserName : Function, setResult : Function){
   }
 
     sessionHandler.callOutFetch(url, options).then(()=>{
-    setUserName('');
     //setResult(null);
     history.replace('/login');
   })
