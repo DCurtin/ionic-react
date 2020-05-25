@@ -84,7 +84,7 @@ function login(username: String, password: String, history : any, setUsername: F
 
       setUsername('');
       setPassword('');
-      history.push('/home');
+      history.push('/home', {userName : 'Dalton Curtin'});
     })
   }).catch(function(error){
       console.log(error);
