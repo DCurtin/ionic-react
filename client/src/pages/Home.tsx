@@ -18,6 +18,10 @@ const Home: React.FC = (props : any) => {
   console.log('fc refreshed');
   console.log('username from props ' + passedInUsername)
 
+  if(passedInUsername !== undefined && passedInUsername !== userName){
+    setUserName(passedInUsername);
+  }
+
   useEffect(()=>{
     if(userName !== '' && userName !== undefined){
       return;
