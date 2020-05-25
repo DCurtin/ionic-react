@@ -12,13 +12,14 @@ const Home: React.FC = (props : any) => {
   const history = useHistory();
   const [userName, setUserName] = useState('');
   const [result, setResult] = useState([{any : String}]);
-
+  var passedInUsername = props.location.state.userName;
   console.log(props);
-  if(props.location.state.userName !== undefined)
+
+  if(passedInUsername !== undefined)
   {
     console.log('setting username from props');
-    console.log(props.userName);
-    setUserName(props.userName);
+    console.log(passedInUsername);
+    setUserName(passedInUsername);
   }
   
   console.log('fc refreshed');
