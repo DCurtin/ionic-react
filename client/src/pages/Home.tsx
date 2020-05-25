@@ -34,11 +34,11 @@ const Home: React.FC = (props : any) => {
     })
   }, []);*/
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     getAccounts().then(function(data : any){
       setResult(data);
     });
-  }, [userName]);
+  }, [userName]);*/
 
   return (
     <IonPage>
@@ -91,10 +91,11 @@ function useEffectToGetAccounts(result : any){
             <IonCol>Name</IonCol>
             <IonCol>Create Transaction</IonCol>
           </IonRow>
-          {(result.map(function(row: any, i : any){
+          {(getAccounts().then(function(data : any){
+            data.map(function(row: any, i : any){
             //console.log(row);
             return <IonRow className={styles.ionRowColoring}><IonCol>{row['sfid']}</IonCol>  <IonCol>{row['name']}</IonCol> <IonCol><IonButton onClick={ () => createTransaction(row['sfid'])}> Create Transaction </IonButton></IonCol></IonRow>
-          }))}
+          })}))}
         </IonGrid>):
         (<IonGrid>
         <IonRow>
