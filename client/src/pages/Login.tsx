@@ -83,8 +83,8 @@ function login(username: String, password: String, history : any, setUsername: F
       sessionHandler.saveSession(data['token'], data['user'].name, 'test');
 
       setUsername('');
-      setPassword('');
       history.push('/home', {userName : 'Dalton Curtin'});
+      setPassword('');
     })
   }).catch(function(error){
       console.log(error);

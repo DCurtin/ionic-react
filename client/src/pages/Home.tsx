@@ -10,22 +10,16 @@ const { Storage } = Plugins;
 
 const Home: React.FC = (props : any) => {
   const history = useHistory();
-  const [userName, setUserName] = useState('');
-  const [result, setResult] = useState([{any : String}]);
   var passedInUsername = props.location.state.userName;
+  const [userName, setUserName] = useState(passedInUsername);
+  const [result, setResult] = useState([{any : String}]);
   console.log(props);
-
-  if(passedInUsername !== undefined)
-  {
-    console.log('setting username from props');
-    console.log(passedInUsername);
-    setUserName(passedInUsername);
-  }
   
   console.log('fc refreshed');
+  console.log('username from props ' + passedInUsername)
 
   useEffect(()=>{
-    if(userName !== ''){
+    if(userName !== '' && userName !== undefined){
       return;
     }
 
