@@ -21,7 +21,7 @@ const Login: React.FC = () => {
       <IonContent className={styles.ionContent}>
         <IonGrid>
           <IonRow className="ion-justify-content-center" >
-          <IonCol size="5">
+          <IonCol size="4">
             <IonCard className={styles.ionCard}>
               <IonGrid>
                 <IonRow><IonCol className={styles.imageContainer}>  <img src={'/assets/CommunityMidlandLogo.gif'} /> </IonCol></IonRow>
