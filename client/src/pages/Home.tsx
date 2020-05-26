@@ -1,24 +1,16 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
 import { Plugins } from '@capacitor/core';
 import React, {useState, useEffect, Component} from 'react';
-import ExploreContainer from '../components/ExploreContainer';
 import sessionHandler from '../helpers/sessionHandler';
 import { useHistory } from 'react-router-dom';
 import styles from './Home.module.css';
-
-interface IRecipeProps {
-  userName?: String
-}
-
-interface IRecipeState {
-}
-
 
 const { Storage } = Plugins;
 
 const Home: React.FC = (props : any) => {
 var userName = props?.location?.state?.userName;
 const history = useHistory();
+
 console.log('username ' + props);
 console.log(props);
   //const [userName, setUserName] = useState(passedInUsername);

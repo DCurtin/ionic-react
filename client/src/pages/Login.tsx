@@ -12,10 +12,7 @@ const Login: React.FC = () => {
   var gridView = true;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  var inputFieldSetters = [setUsername, setPassword];
-
   const history = useHistory();
-  // onKeyUp={e => e.key === 'Enter' ? login(username, password, history, setUsername, setPassword) : null} 
   return gridView ? (
     <IonPage>
       <IonContent className={styles.ionContent}>

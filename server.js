@@ -252,6 +252,12 @@ function removeSession(token){
 });*/
 
 
+app.post('/startApplication', function(req, res){
+  console.log(req.body);
+  res.send('ok');
+});
+
+
 var port = process.env.PORT || 8200;
 
 app.listen(port, () => console.log(port));
