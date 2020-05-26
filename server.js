@@ -276,11 +276,22 @@ function removeSession(token){
 app.post('/startApplication', function(req, res){
   console.log(serverConn);
   console.log(req.body);
+  const hash = require('crypto').createHash('sha256');
   var onlineApp = req.body;
+  var token = hash.update(JSON.stringify(onlineApp)).digest('hex');
   onlineApp['Dedicated_Rep__c'] = '0050M00000Dv1h5QAB';
+  onlineApp['Token__c'] = token;
   serverConn.sobject("Online_Application__c").create(onlineApp, function(err, ret){
     console.log(ret);
-    res.send('ok');
+    if(ret.success === true){
+      const insertAppQuery = {
+        text: 'INSERT INTO salesforce.application__c(sfid, first_name__c, last_name__c, email__c, token__c) VALUES($1, $2, $3, $4, $5)',
+        values: [ret.id, onlineApp['First_Name__c'], onlineApp['Last_Name__c'], onlineApp['Email__c'], token],
+      }
+      client.query(insertAppQuery, function(err, response){
+        res.json({'sessionId':ret.id+token});
+      });
+    }
   })
 });
 
