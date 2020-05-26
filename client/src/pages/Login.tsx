@@ -87,7 +87,7 @@ function login(username: String, password: String, history : any, setUsername: F
       setPassword('');
       history.push({
         pathname: '/home',
-        state: { userName: 'Dalton Curtin2'}
+        state: { userName: data['user'].name}
       })
     })
   }).catch(function(error){

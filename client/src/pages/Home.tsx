@@ -72,7 +72,6 @@ function logout(history : any, setResult : Function){
   }
 
     sessionHandler.callOutFetch(url, options).then(()=>{
-    //setResult(null);
     history.replace('/login');
   })
 }
