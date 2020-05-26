@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import styles from './Home.module.css';
 
 const ApplicationIdentity: React.FC = (props : any) => {
-    const [formData, setFormData] = useState({firstName:'', lastName:'', social: '', email: '', dateOfBirth: ''});
+    const [formData, setFormData] = useState({First_Name__c:'', Last_Name__c:'', SSN__c: '', Email__c: '', DOB__c: ''});
     const history = useHistory();
     const updateForm = function(e : any){
         setFormData({
@@ -27,11 +27,11 @@ const ApplicationIdentity: React.FC = (props : any) => {
           <IonItem>
           <IonCard>
                 <IonLabel>Beneficiary</IonLabel>
-                <IonInput class='item-input' name="firstName" value={formData.firstName} placeholder="First Name" onIonChange={e => updateForm(e!)} clearInput></IonInput>
-                <IonInput class='item-input' name="lastName" value={formData.lastName} placeholder="Last Name" onIonChange={e => updateForm(e!)} clearInput></IonInput>
-                <IonInput class='item-input' name="social" value={formData.social} placeholder="Social" onIonChange={e => updateForm(e!)} clearInput></IonInput>
-                <IonInput type='email' class='item-input' name="email" value={formData.email} placeholder="Email" onIonChange={e => updateForm(e!)} clearInput></IonInput>
-                <IonInput type='date' class='item-input' name="dateOfBirth" value={formData.dateOfBirth} placeholder="Date of Birth" onIonChange={e => updateForm(e!)} clearInput></IonInput>
+                <IonInput class='item-input' name="First_Name__c" value={formData.First_Name__c} placeholder="First Name" onIonChange={e => updateForm(e!)} clearInput></IonInput>
+                <IonInput class='item-input' name="Last_Name__c" value={formData.Last_Name__c} placeholder="Last Name" onIonChange={e => updateForm(e!)} clearInput></IonInput>
+                <IonInput class='item-input' name="SSN__c" value={formData.SSN__c} placeholder="Social" onIonChange={e => updateForm(e!)} clearInput></IonInput>
+                <IonInput type='email' class='item-input' name="Email__c" value={formData.Email__c} placeholder="Email" onIonChange={e => updateForm(e!)} clearInput></IonInput>
+                <IonInput type='date' class='item-input' name="DOB__c" value={formData.DOB__c} placeholder="Date of Birth" onIonChange={e => updateForm(e!)} clearInput></IonInput>
             </IonCard>
           </IonItem>
           <IonItem>

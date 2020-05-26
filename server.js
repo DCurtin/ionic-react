@@ -9,6 +9,27 @@ var cachedConnections = {};
 const USER_TIMEOUT_IN_MINUTES = 15;
 const loginUrl = 'https://test.salesforce.com';
 
+var serverConn = new jsforce.Connection({
+  oauth2 : {
+    // you can change loginUrl to connect to sandbox or prerelease env.
+    // loginUrl : 'https://test.salesforce.com',
+    loginUrl : loginUrl,
+    //loginUrl : 'https://dcurtin-iraonline.cs17.force.com/client',
+    clientId : process.env.SFServer_Id,
+    clientSecret : process.env.SFServer_Sec,
+    redirectUri : process.env.SF_Redirect
+  }
+});
+
+
+serverConn.login(process.env.UserId, process.env.UserPw + process.env.UserToken, function(err, userInfo) {
+  console.log('token: ' + serverConn.accessToken)
+  if (err) {
+    console.log(err);
+    return console.log('fail');
+  }
+})
+
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -253,8 +274,14 @@ function removeSession(token){
 
 
 app.post('/startApplication', function(req, res){
+  console.log(serverConn);
   console.log(req.body);
-  res.send('ok');
+  var onlineApp = req.body;
+  onlineApp['Dedicated_Rep__c'] = '0050M00000Dv1h5QAB';
+  serverConn.sobject("Online_Application__c").create(onlineApp, function(err, ret){
+    console.log(ret);
+    res.send('ok');
+  })
 });
 
 
