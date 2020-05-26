@@ -96,9 +96,9 @@ function useEffectToGetAccounts(result : any){
           <IonCol>Name</IonCol>
           <IonCol>Create Transaction</IonCol>
         </IonRow>
-        <IonRow className={styles.ionRowColoring}><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
-        <IonRow className={styles.ionRowColoring}><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
-        <IonRow className={styles.ionRowColoring}><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol> col 3</IonCol></IonRow>
+        <IonRow className={styles.ionRowColoring}><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol><IonButton> Create Transaction </IonButton></IonCol></IonRow>
+        <IonRow className={styles.ionRowColoring}><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol><IonButton> Create Transaction </IonButton></IonCol></IonRow>
+        <IonRow className={styles.ionRowColoring}><IonCol> col 1</IonCol> <IonCol> col 2</IonCol> <IonCol><IonButton> Create Transaction </IonButton></IonCol></IonRow>
         </IonGrid>)
 }
 

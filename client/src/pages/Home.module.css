@@ -30,11 +30,11 @@
     background: rgb(108, 106, 106);
     color: white;
     margin-bottom: 5pt;
-    vertical-align: middle;
+    align-items: center;
 }
 .ionRowColoring:nth-child(odd){
     background: #E9E9E9;
     color: black;
     margin-bottom: 5pt;
-    vertical-align: middle;
+    align-items: center;
 }
