@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import styles from './Home.module.css';
 
 const ApplicationBene: React.FC = (props : any) => {
-    const sessionId = props.location.state.sessionId;
+    const sessionId = props?.location?.state?.sessionId;
     console.log('sessionId ' + sessionId);
     const [formData, setFormData] = useState({firstName:'', lastName:'', social: '', email: '', dateOfBirth: ''});
     console.log('Stringify: ' + JSON.stringify(formData));

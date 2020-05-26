@@ -66,7 +66,7 @@ function nextState(formData:any, history: any){
         if(!response.ok){
             console.log('failed to save state');
         }
-        var sessionId = 'test1234'
+        var sessionId = response.body.sessionId;
         history.push('/AppBene', {'sessionId': sessionId});
     })
 }

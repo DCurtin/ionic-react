@@ -276,9 +276,17 @@ function removeSession(token){
 app.post('/startApplication', function(req, res){
   console.log(serverConn);
   console.log(req.body);
-  const hash = require('crypto').createHash('sha256');
   var onlineApp = req.body;
+  const hash = require('crypto').createHash('sha256');
   var token = hash.update(JSON.stringify(onlineApp)).digest('hex');
+
+  if(onlineApp['sessionId'] !== undefined){
+    var sessionId = onlineApp['sessionId'];
+    console.log('application was likely already started, pulling app data');
+    console.log(sessionId);
+    res.send('ok');
+    return;
+  }
   onlineApp['Dedicated_Rep__c'] = '0050M00000Dv1h5QAB';
   onlineApp['Token__c'] = token;
   serverConn.sobject("Online_Application__c").create(onlineApp, function(err, ret){
