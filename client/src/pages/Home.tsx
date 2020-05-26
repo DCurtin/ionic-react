@@ -25,13 +25,14 @@ console.log(props);
   const [result, setResult] = useState([{any : String}]);
 
   useEffect(()=>{
-    return getAccounts().then(function(data : any){
+     getAccounts().then(function(data : any){
       setResult(data);
-      return () => {
-        console.log('unmount?');
-        setResult([])
-      }
     });
+
+    return () => {
+      console.log('unmount?');
+      setResult([])
+    }
   }, [userName]);
 
   return (
